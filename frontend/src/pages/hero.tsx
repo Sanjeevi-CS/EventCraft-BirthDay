@@ -6,6 +6,7 @@ import feature2 from "../assets/images/feature-2.png";
 import logo from "../assets/images/logo.svg";
 import mail from "../assets/images/Animation - 1707835758979.gif";
 import user from "../assets/images/clip-web-design.gif";
+import birthday from "../assets/images/undraw_party_re_nmwj.svg";
 
     class Hero extends Component {
 
@@ -17,14 +18,25 @@ import user from "../assets/images/clip-web-design.gif";
         this.state = {
         isDarkmode: false,
         };
+        this.state = {
+        isloginModalOpen: false,
+        };
     }
 
     openModal = () => {
-        this.setState({ isModalOpen: true });
+        this.setState({ isModalOpen: true ,isloginModalOpen:false});
     };
 
     closeModal = () => {
         this.setState({ isModalOpen: false });
+    };
+
+    loginopenModal = () => {
+        this.setState({ isloginModalOpen: true,isModalOpen: false });
+    };
+
+    logincloseModal = () => {
+        this.setState({ isloginModalOpen: false });
     };
 
     toggleDarkmode = () => {
@@ -34,12 +46,13 @@ import user from "../assets/images/clip-web-design.gif";
     };
    
     
+
     render() {
         return (
         <div className={`${this.state.isDarkmode ? 'dark' : ''} `}>
             {/* <h1 className="text-3xl font-bold text-grey  ">Hello</h1> */}
             <header className="fixed w-full">
-            <nav className="bg-gray border-gray-200 py-2.5 dark:bg-gray-900">
+            <nav className="bg-opacity-50 backdrop-filter backdrop-blur-lg bg-transparent border-gray-200 py-2.5 dark:bg-opacity-50">
                 <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
                 <a href="#" className="flex items-center">
                     <img
@@ -48,12 +61,13 @@ import user from "../assets/images/clip-web-design.gif";
                     alt="Landwind Logo"
                     />
                     <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-                    Landwind
+                    OccasionOracle
                     </span>
                 </a>
               <div className="flex items-center lg:order-2">
                 <button
                   // href="/login"
+                  onClick={this.loginopenModal}
                   className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
                 >
                   Log in
@@ -112,22 +126,8 @@ import user from "../assets/images/clip-web-design.gif";
                       Home
                     </a>
                   </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                    >
-                      Company
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                    >
-                      Marketplace
-                    </a>
-                  </li>
+                  
+                 
                   <li>
                     <a
                       href="#"
@@ -136,14 +136,7 @@ import user from "../assets/images/clip-web-design.gif";
                       Features
                     </a>
                   </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                    >
-                      Team;
-                    </a>
-                  </li>
+
                   <li>
                     <a
                       href="#"
@@ -215,6 +208,7 @@ import user from "../assets/images/clip-web-design.gif";
               </div>
             </div>
           </nav>
+          {/* SignUP */}
           {this.state.isModalOpen && (
             <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
               <div
@@ -230,14 +224,15 @@ import user from "../assets/images/clip-web-design.gif";
           rounded-3xl
           w-50
           max-w-md
+          dark:bg-gray-700
         "
               >
-                <div className="font-medium self-center text-xl sm:text-3xl text-gray-800">
+                <div className="font-medium self-center text-xl sm:text-3xl text-gray-800 dark:text-white">
                   Join us Now
                 </div>
 
                 <img src={user} className="h-[10rem] w-[11rem] ml-[2.75rem]" />
-                <div className="mt-4 self-center text-xl sm:text-sm text-gray-800">
+                <div className="mt-4 self-center text-xl sm:text-sm text-gray-800 dark:text-white">
                   Enter your credentials to get access account
                 </div>
 
@@ -246,7 +241,7 @@ import user from "../assets/images/clip-web-design.gif";
                     <div className="flex flex-col mb-5">
                       <label
                         htmlFor="email"
-                        className="mb-1 text-xs tracking-wide text-gray-600"
+                        className="mb-1 text-xs tracking-wide text-gray-600 dark:text-white"
                       >
                         Name:
                       </label>
@@ -289,7 +284,7 @@ import user from "../assets/images/clip-web-design.gif";
                     <div className="flex flex-col mb-5">
                       <label
                         htmlFor="email"
-                        className="mb-1 text-xs tracking-wide text-gray-600"
+                        className="mb-1 text-xs tracking-wide text-gray-600 dark:text-white"
                       >
                         E-Mail Address:
                       </label>
@@ -332,7 +327,7 @@ import user from "../assets/images/clip-web-design.gif";
                     <div className="flex flex-col mb-6">
                       <label
                         htmlFor="password"
-                        className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600"
+                        className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600 dark:text-white"
                       >
                         Password:
                       </label>
@@ -384,13 +379,15 @@ import user from "../assets/images/clip-web-design.gif";
             text-gray-700
             font-medium
             text-xs text-center
+            dark:text-white
           "
                       >
                         <span className="ml-2">
                           You have an account?
                           <a
                             href="#"
-                            className="text-xs ml-2 text-blue-500 font-semibold"
+                            onClick={this.loginopenModal}
+                            className="text-xs ml-2 text-blue-500 font-semibold dark:text-purple-500"
                           >
                             Login here
                           </a>
@@ -410,6 +407,8 @@ import user from "../assets/images/clip-web-design.gif";
                   sm:text-base
                   bg-blue-500
                   hover:bg-blue-600
+                  dark:bg-purple-500
+                  dark:hover:bg-purple-600
                   rounded-2xl
                   py-2
                   w-full
@@ -439,19 +438,206 @@ import user from "../assets/images/clip-web-design.gif";
               </div>
             </div>
           )}
+          {/* Login */}
+          {this.state.isloginModalOpen && (
+            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+              <div
+                className="
+          flex flex-col
+          bg-white
+          dark:bg-gray-700
+          shadow-md
+          px-4
+          sm:px-6
+          md:px-8
+          lg:px-10
+          py-8
+          rounded-3xl
+          w-50
+          max-w-md
+        "
+              >
+                <div className="font-medium self-center text-xl sm:text-3xl text-gray-800 dark:text-white">
+                  Login Now
+                </div>
+
+                <img src={user} className="h-[10rem] w-[11rem] ml-[2.75rem]" />
+                <div className="mt-4 self-center text-xl sm:text-sm text-gray-800 dark:text-white">
+                  Enter your credentials to plan your birthday
+                </div>
+
+                <div className="mt-10">
+                  <form action="#">
+                    <div className="flex flex-col mb-5">
+                      <label
+                        htmlFor="email"
+                        className="mb-1 text-xs tracking-wide text-gray-600 dark:text-white"
+                      >
+                        E-Mail Address:
+                      </label>
+                      <div className="relative">
+                        <div
+                          className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    absolute
+                    left-0
+                    top-0
+                    h-full
+                    w-10
+                    text-gray-400
+                  "
+                        >
+                          <img src={mail} />
+                        </div>
+
+                        <input
+                          id="email"
+                          type="email"
+                          name="email"
+                          className="
+                    text-sm
+                    placeholder-gray-500
+                    pl-10
+                    pr-4
+                    rounded-2xl
+                    border border-gray-400
+                    w-full
+                    py-2
+                    focus:outline-none focus:border-blue-400
+                  "
+                          placeholder="Enter your email"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col mb-6">
+                      <label
+                        htmlFor="password"
+                        className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600 dark:text-white"
+                      >
+                        Password:
+                      </label>
+                      <div className="relative">
+                        <div
+                          className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    absolute
+                    left-0
+                    top-0
+                    h-full
+                    w-10
+                    text-gray-400
+                  "
+                        >
+                          <span>
+                            <i className="fas fa-lock text-blue-500"></i>
+                          </span>
+                        </div>
+
+                        <input
+                          id="password"
+                          type="password"
+                          name="password"
+                          className="
+                    text-sm
+                    placeholder-gray-500
+                    pl-10
+                    pr-4
+                    rounded-2xl
+                    border border-gray-400
+                    w-full
+                    py-2
+                    focus:outline-none focus:border-blue-400
+                  "
+                          placeholder="Enter your password"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex justify-center items-center mt-6">
+                      <a
+                        href="#"
+                        target="_blank"
+                        className="
+            inline-flex
+            items-center
+            text-gray-700
+            dark:text-white
+            font-medium
+            text-xs text-center
+          "
+                      >
+                        <span className="ml-2">
+                          Don't have an account?
+                          <a
+                            href="#"
+                            onClick={this.openModal}
+                            className="text-xs ml-2 text-blue-500 font-semibold dark:text-purple-500"
+                          >
+                            Signup here
+                          </a>
+                        </span>
+                      </a>
+                    </div>
+                    <div className="flex w-full">
+                      <button
+                        type="submit"
+                        className="
+                  flex
+                  mt-2
+                  items-center
+                  justify-center
+                  focus:outline-none
+                  text-white text-sm
+                  sm:text-base
+                  bg-blue-500
+                  hover:bg-blue-600
+                  dark:bg-purple-500
+                  dark:hover:bg-purple-600
+                  rounded-2xl
+                  py-2
+                  w-full
+                  transition
+                  duration-150
+                  ease-in
+                "
+                      >
+                        <span className="mr-2 uppercase">Login</span>
+                        <span>
+                          <svg
+                            className="h-6 w-6"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          )}
         </header>
         <section className="bg-white dark:bg-gray-900">
           <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
             <div className="mr-auto place-self-center lg:col-span-7">
               <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
-                Building digital
+              OccasionOracle 🥳
               </h1>
               <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-                Vanakam da Mapla cbe la iruthu
+                We care for your Janam dhin 😌
               </p>
             </div>
             <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-              <img src={heropng} alt="hero image" />
+              <img src={birthday} alt="hero image" />
             </div>
           </div>
         </section>
