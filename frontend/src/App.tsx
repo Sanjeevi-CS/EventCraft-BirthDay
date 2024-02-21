@@ -4,6 +4,9 @@
 import './index.css'
 import { BrowserRouter, Routes,Route } from "react-router-dom";
 import Hero from './pages/hero';
+import Dashboard from "./Components/dashboard";
+import Navbar from './Components/navbar';
+import Themes from './pages/themes';
 function App() {
  
 
@@ -13,6 +16,8 @@ function App() {
         <BrowserRouter>
         <Routes>
           <Route path="/" element={<Hero/>}></Route>
+          <Route path="/dashboard" element={<Dashboard/>}></Route>
+          <Route path="/themes" element={<Themes/>}></Route>
         </Routes>
         </BrowserRouter>
       </div>
