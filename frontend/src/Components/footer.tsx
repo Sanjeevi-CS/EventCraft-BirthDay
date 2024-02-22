@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 class Footer extends Component {
-    render() {
-        return (
-            <div>
-             <footer className="bg-white dark:bg-gray-800">
+  render() {
+    const { isDarkmode } = this.props;
+    return (
+      <div className={`${isDarkmode ? 'dark' : ''} `}>
+        <footer className="bg-white dark:bg-mine">
           <div className="max-w-screen-xl p-4 py-6 mx-auto lg:py-16 md:p-8 lg:p-10">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-5">
               <div>
@@ -138,12 +139,14 @@ class Footer extends Component {
                 </ul>
               </div>
             </div>
-            <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+            <hr className="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
           </div>
         </footer>
-            </div>
-        );
-    }
+      </div>
+    );
+  }
 }
-
-export default Footer;
+const mapStateToProps = (state) => ({
+  isDarkmode: state.isDarkmode,
+});
+export default connect(mapStateToProps)(Footer);

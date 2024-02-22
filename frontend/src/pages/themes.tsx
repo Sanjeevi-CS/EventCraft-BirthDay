@@ -8,16 +8,35 @@ import planet2 from "../assets/images/enchanted-forest-theme.jpg";
 import Navbar from "../Components/navbar";
 import Footer from "../Components/footer";
 import { useNavigate } from "react-router-dom";
-const Themes = () => {
-    const navigate = useNavigate();
-    // ... (existing code)
+import "../assets/css/theme-repeator.css"
+import RootState from "../redux/store";
+import { connect } from 'react-redux';
+interface ThemesProps {
+    isDarkmode: boolean;
+}
+const Themes: React.FC<ThemesProps> = ({ isDarkmode }) => {
 
-    const handleImageClick = (index) => {
-        // Replace this with your actual redirection logic
+    const navigate = useNavigate();
+
+    const handleImageClick = (index: number) => {
         console.log(`Clicked on image ${index}`);
-        // Navigate to the next page
-        navigate("/next-page"); // Replace "/next-page" with your actual route
+        const selectedImage = images[index];
+        const selectedDescription = descriptions[index];
+        console.log(selectedDescription);
+        navigate(`/theme/${index}`, { state: { selectedImage, selectedDescription } });
     };
+
+    const [darkMode, setDarkMode] = useState(false);
+
+    useEffect(() => {
+
+        const storedDarkMode = localStorage.getItem("isDarkmode");
+
+        if (storedDarkMode !== null) {
+            setDarkMode(JSON.parse(storedDarkMode));
+        }
+        console.log(`Setting dark mode to: ${darkMode}`);
+    }, [darkMode]);
 
     const [positionIndexes, setPositionIndexes] = useState([0, 1, 2, 3, 4]);
 
@@ -40,6 +59,23 @@ const Themes = () => {
         });
     };
 
+    const handleKeyboardNavigation = (event: KeyboardEvent) => {
+        if (event.key === "ArrowRight") {
+            handleNext();
+        } else if (event.key === "ArrowLeft") {
+            handleBack();
+        }
+    };
+
+
+    useEffect(() => {
+        document.addEventListener("keydown", handleKeyboardNavigation);
+        return () => {
+
+            document.removeEventListener("keydown", handleKeyboardNavigation);
+        };
+    }, []);
+
     const images = [city1, city2, city3, planet1, planet2];
 
     const positions = ["center", "left1", "left", "right", "right1"];
@@ -59,52 +95,93 @@ const Themes = () => {
         "Classic Theme",
         "Enchanted Forest Theme",
     ];
+
+
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+    const handleImageHover = (index: number) => {
+        setHoveredIndex(index);
+    };
+
+    // console.log(isDarkmode);
     return (
         <>
             <Navbar />
-            <div className="bg-black">
-                <div className="flex  mr-[37.5rem] items-center flex-col justify-center bg-black h-screen">
-                    {images.map((image, index) => (
-                        <button
-                            key={index}
-                            onClick={() => handleImageClick(index)}
-                        // className="image-button"
-                        // style={{ width: "40%", position: "absolute", border: "none", padding: 0, background: "none" }}
-                        >
-                            <motion.img
+            <div className={`${isDarkmode ? 'dark' : ''} `}>
+                <div className="dark:bg-m2">
+                    <div className="flex  mr-[37.5rem] items-center flex-col justify-center dark:bg-m2 h-screen">
+                        {images.map((image, index) => (
+                            <button
                                 key={index}
-                                src={image}
-                                alt={image}
+                                onClick={() => handleImageClick(index)}
+                                onMouseEnter={() => handleImageHover(index)}
+                                onMouseLeave={() => handleImageHover(null)}
+                                style={{ display: "block" }}
+                            // className="image-button"
+                            // style={{ width: "40%", position: "absolute", border: "none", padding: 0, background: "none" }}
+                            >
+                                <motion.img
+                                    key={index}
+                                    src={image}
 
-                                className="rounded-[12px]"
-                                initial="center"
-                                animate={positions[positionIndexes[index]]}
-                                variants={imageVariants}
-                                whileHover={{ scale: 1.0 }}
-                                transition={{ duration: 0.5 }}
-                                style={{ width: "40%", position: "absolute" }}
-                            />
+
+                                    className="rounded-[12px]"
+                                    initial="center"
+                                    animate={positions[positionIndexes[index]]}
+                                    variants={imageVariants}
+                                    // whileHover={{ scale: 0.8 }}
+                                    // transition={{ duration: 0.5 }}
+                                    style={{ width: "40%", position: "absolute" }}
+                                />
+                                {hoveredIndex === index && (
+                                    <motion.div
+                                        className="text-purple-500 mt-4  absolute bottom-1 left-0 right-0 bg-transparent p-2  z-[1]"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                    >
+                                        {descriptions[index]}
+                                    </motion.div>
+                                )}
+                            </button>
+                        ))}
+
+                        <button
+                            className="text-white mt-[400px] rounded-md py-2 px-4"
+                            onClick={handleBack}
+                        >
+
                         </button>
-                    ))}
+                        <button
+                            className="text-white mt-[207px] ml-[56%]    rounded-md py-2 px-4"
+                            onClick={handleNext}
+                        >
 
-                    <button
-                        className="text-white mt-[400px] bg-indigo-400 rounded-md py-2 px-4"
-                        onClick={handleBack}
-                    >
-                        Back
-                    </button>
-                    <button
-                        className="text-white mt-[207px] ml-[56%] bg-indigo-400 rounded-md py-2 px-4"
-                        onClick={handleNext}
-                    >
-                        Next
-                    </button>
-
+                        </button>
+                    </div>
                 </div>
             </div>
+            {/* <div>
+                <div onMouseMove={(e) => { imgbox_hover(e) }} className="imagebox" style={{ backgroundImage: `url('https://th.bing.com/th/id/OIP.sYNQ9cIfj2EVnXF4SI--gwHaFj?w=1024&h=768&rs=1&pid=ImgDetMain')` }}>
+                    <h1>Testing</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit numquam maxime ea recusandae. Facere velit quasi cupiditate, ipsa quas impedit veritatis, harum id quod molestiae ut fugit blanditiis tempora placeat.</p>
+                </div>
+                <div className="imagebox" style={{ backgroundImage: `url('https://th.bing.com/th/id/OIP.sYNQ9cIfj2EVnXF4SI--gwHaFj?w=1024&h=768&rs=1&pid=ImgDetMain')` }}>
+                    <h1>Testing</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit numquam maxime ea recusandae. Facere velit quasi cupiditate, ipsa quas impedit veritatis, harum id quod molestiae ut fugit blanditiis tempora placeat.</p>
+                </div>
+                <div className="imagebox" style={{ backgroundImage: `url('https://th.bing.com/th/id/OIP.sYNQ9cIfj2EVnXF4SI--gwHaFj?w=1024&h=768&rs=1&pid=ImgDetMain')` }}>
+                    <h1>Testing</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit numquam maxime ea recusandae. Facere velit quasi cupiditate, ipsa quas impedit veritatis, harum id quod molestiae ut fugit blanditiis tempora placeat.</p>
+                </div>
+            </div> */}
             <Footer />
         </>
     );
 };
-
-export default Themes;
+const mapStateToProps = (state: RootState) => {
+    return {
+        isDarkmode: state.isDarkmode, // Replace with your actual reducer name
+    };
+};
+export default connect(mapStateToProps)(Themes);
