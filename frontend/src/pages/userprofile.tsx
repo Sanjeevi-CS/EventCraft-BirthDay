@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Navbar from '../Components/navbar';
 import Footer from '../Components/footer';
 import { connect } from 'react-redux';
-import mail from "../assets/images/Animation - 1707835758979.gif";
-import user from "../assets/images/clip-web-design.gif";
+import mail from "../assets/images/system-regular-59-email.gif";
+import user from "../assets/images/system-regular-8-account.gif";
+import phone from "../assets/images/system-regular-58-call-phone.gif";
 class Userprofile extends Component {
 
     render() {
@@ -35,14 +36,14 @@ class Userprofile extends Component {
                     items-center
                     justify-center
                     absolute
-                    left-0
+                    left-[8px]
                     top-0
                     h-full
-                    w-10
+                    w-[1.5rem]
                     text-gray-400
                   "
                                         >
-                                            <img src={mail} />
+                                            <img src={user} />
                                         </div>
 
                                         <input
@@ -80,10 +81,10 @@ class Userprofile extends Component {
                     items-center
                     justify-center
                     absolute
-                    left-0
+                    left-[8px]
                     top-0
                     h-full
-                    w-10
+                    w-[1.5rem]
                     text-gray-400
                   "
                                         >
@@ -123,16 +124,14 @@ class Userprofile extends Component {
                     items-center
                     justify-center
                     absolute
-                    left-0
+                    left-[8px]
                     top-0
                     h-full
-                    w-10
+                    w-[1.5rem]
                     text-gray-400
                   "
                                         >
-                                            <span>
-                                                <i className="fas fa-lock text-blue-500"></i>
-                                            </span>
+                                            <img src={phone}/>
                                         </div>
 
                                         <input
@@ -213,6 +212,7 @@ class Userprofile extends Component {
 
 
                                 <div className="relative overflow-x-auto">
+                                    <h1 className="dark:text-gray-400 font-bold text-2xl text-center">Recent Bookings</h1>
                                     <table className="w-[96%] text-sm text-left rtl:text-right text-gray-500 dark:text-purple-400">
                                         <thead className="text-xs text-gray-900 uppercase dark:text-gray-400 ">
                                             <tr>

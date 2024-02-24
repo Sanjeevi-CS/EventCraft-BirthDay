@@ -4,10 +4,11 @@ import { Button } from "../Components/button";
 import feature1 from "../assets/images/feature-1.png";
 import feature2 from "../assets/images/feature-2.png";
 import logo from "../assets/images/logo.svg";
-import mail from "../assets/images/Animation - 1707835758979.gif";
+import mail from "../assets/images/system-regular-59-email.gif";
 import user from "../assets/images/clip-web-design.gif";
+import avatar from "../assets/images/system-regular-8-account.gif"
 import birthday from "../assets/images/undraw_party_re_nmwj.svg";
-
+import password from "../assets/images/system-regular-40-add-card.gif";
 class Hero extends Component {
 
   constructor(props) {
@@ -250,14 +251,14 @@ class Hero extends Component {
                     items-center
                     justify-center
                     absolute
-                    left-0
+                    left-[8px]
                     top-0
                     h-full
-                    w-10
+                    w-[1.5rem]
                     text-gray-400
                   "
                         >
-                          <img src={mail} />
+                          <img src={avatar} />
                         </div>
 
                         <input
@@ -293,10 +294,10 @@ class Hero extends Component {
                     items-center
                     justify-center
                     absolute
-                    left-0
+                    left-[8px]
                     top-0
                     h-full
-                    w-10
+                    w-[1.5rem]
                     text-gray-400
                   "
                         >
@@ -336,16 +337,14 @@ class Hero extends Component {
                     items-center
                     justify-center
                     absolute
-                    left-0
+                    left-[8px]
                     top-0
                     h-full
-                    w-10
+                    w-[1.5rem]
                     text-gray-400
                   "
                         >
-                          <span>
-                            <i className="fas fa-lock text-blue-500"></i>
-                          </span>
+                          <img src={password} />
                         </div>
 
                         <input
@@ -480,10 +479,10 @@ class Hero extends Component {
                     items-center
                     justify-center
                     absolute
-                    left-0
+                    left-[8px]
                     top-0
                     h-full
-                    w-10
+                    w-[1.5rem]
                     text-gray-400
                   "
                         >
@@ -523,16 +522,17 @@ class Hero extends Component {
                     items-center
                     justify-center
                     absolute
-                    left-0
+                    left-[8px]
                     top-0
                     h-full
-                    w-10
+                    w-[1.5rem]
                     text-gray-400
                   "
                         >
-                          <span>
-                            <i className="fas fa-lock text-blue-500"></i>
-                          </span>
+
+
+
+                          <img src={password} />
                         </div>
 
                         <input
@@ -640,7 +640,7 @@ class Hero extends Component {
             </div>
           </div>
         </section>
-        <section className="bg-white dark:bg-gray-900">
+        {/* <section className="bg-white dark:bg-gray-900">
           <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16">
             <div className="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 sm:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
               <a href="#" className="flex items-center lg:justify-center">
@@ -852,7 +852,7 @@ class Hero extends Component {
               </a>
             </div>
           </div>
-        </section>
+        </section> */}
         <section className="bg-gray-50 dark:bg-gray-800">
           <div className="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
             <div className="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">

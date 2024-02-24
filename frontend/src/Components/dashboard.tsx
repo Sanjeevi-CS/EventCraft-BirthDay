@@ -88,11 +88,11 @@ class Dashboard extends Component {
 
             <div className="flex gap-2 lg:flex-row sm:flex-col flex-col w-full dark:bg-mine bg-white ">
               <div className=" rounded-xl m-2  lg:w-[calc(40%-4px)] sm:w-full h-[506px] dark:bg-m2 bg-blue-100">
-                <div class="bg-transparent dark:bg-gray-900  shadow-lg rounded-lg m-9 space-y-4">
-                  <div class="flex items-center p-4 space-x-4">
-                    <div class="p-2 bg-purple-200 rounded-full">
+                <div className="bg-transparent dark:bg-gray-900  shadow-lg rounded-lg m-9 space-y-4">
+                  <div className="flex items-center p-4 space-x-4">
+                    <div className="p-2 bg-purple-200 rounded-full">
 
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a2 2 0 00-2-2h-3v4z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 15V7a2 2 0 012-2h10a2 2 0 012 2v8" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 15v4a2 2 0 002 2h3v-4" />
@@ -100,11 +100,11 @@ class Dashboard extends Component {
                       </svg>
                     </div>
                     <div>
-                      <div class="text-gray-600 dark:text-white text-sm">Total Subscribers</div>
-                      <div class="text-gray-900 dark:text-purple-900 text-2xl font-semibold">
+                      <div className="text-gray-600 dark:text-white text-sm">Total Subscribers</div>
+                      <div className="text-gray-900 dark:text-purple-900 text-2xl font-semibold">
                         71,897
-                        <span class="text-green-500 text-sm font-medium flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <span className="text-green-500 text-sm font-medium flex items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
                           </svg>
                           122
@@ -113,11 +113,11 @@ class Dashboard extends Component {
                     </div>
                   </div>
                 </div>
-                <div class="bg-transparent dark:bg-gray-900  shadow-lg rounded-lg m-9 space-y-4">
-                  <div class="flex items-center p-4 space-x-4">
-                    <div class="p-2 bg-purple-200 rounded-full">
+                <div className="bg-transparent dark:bg-gray-900  shadow-lg rounded-lg m-9 space-y-4">
+                  <div className="flex items-center p-4 space-x-4">
+                    <div className="p-2 bg-purple-200 rounded-full">
 
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a2 2 0 00-2-2h-3v4z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 15V7a2 2 0 012-2h10a2 2 0 012 2v8" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 15v4a2 2 0 002 2h3v-4" />
@@ -125,11 +125,11 @@ class Dashboard extends Component {
                       </svg>
                     </div>
                     <div>
-                      <div class="text-gray-600 dark:text-white text-sm">Total Subscribers</div>
-                      <div class="text-gray-900 dark:text-purple-900 text-2xl font-semibold">
+                      <div className="text-gray-600 dark:text-white text-sm">Total Subscribers</div>
+                      <div className="text-gray-900 dark:text-purple-900 text-2xl font-semibold">
                         71,897
-                        <span class="text-green-500 text-sm font-medium flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <span className="text-green-500 text-sm font-medium flex items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
                           </svg>
                           122
@@ -138,11 +138,11 @@ class Dashboard extends Component {
                     </div>
                   </div>
                 </div>
-                <div class="bg-transparent dark:bg-gray-900  shadow-lg rounded-lg m-9 space-y-4">
-                  <div class="flex items-center p-4 space-x-4">
-                    <div class="p-2 bg-purple-200 rounded-full">
+                <div className="bg-transparent dark:bg-gray-900  shadow-lg rounded-lg m-9 space-y-4">
+                  <div className="flex items-center p-4 space-x-4">
+                    <div className="p-2 bg-purple-200 rounded-full">
 
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a2 2 0 00-2-2h-3v4z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 15V7a2 2 0 012-2h10a2 2 0 012 2v8" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 15v4a2 2 0 002 2h3v-4" />
@@ -150,11 +150,11 @@ class Dashboard extends Component {
                       </svg>
                     </div>
                     <div>
-                      <div class="text-gray-600 dark:text-white text-sm">Total Subscribers</div>
-                      <div class="text-gray-900 dark:text-purple-900 text-2xl font-semibold">
+                      <div className="text-gray-600 dark:text-white text-sm">Total Subscribers</div>
+                      <div className="text-gray-900 dark:text-purple-900 text-2xl font-semibold">
                         71,897
-                        <span class="text-green-500 text-sm font-medium flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <span className="text-green-500 text-sm font-medium flex items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
                           </svg>
                           122
@@ -185,11 +185,11 @@ class Dashboard extends Component {
 
             <div className="flex gap-2 lg:flex-row sm:flex-col flex-col w-full  dark:bg-mine bg-white   ">
               <div className=" rounded-xl m-2  lg:w-[calc(63%-4px)] sm:w-full h-[506px] dark:bg-m2 bg-blue-100">
-                <div class="bg-transparent dark:bg-gray-900  shadow-lg rounded-lg m-9 space-y-4">
-                  <div class="flex items-center p-4 space-x-4">
-                    <div class="p-2 bg-purple-200 rounded-full">
+                <div className="bg-transparent dark:bg-gray-900  shadow-lg rounded-lg m-9 space-y-4">
+                  <div className="flex items-center p-4 space-x-4">
+                    <div className="p-2 bg-purple-200 rounded-full">
 
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a2 2 0 00-2-2h-3v4z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 15V7a2 2 0 012-2h10a2 2 0 012 2v8" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 15v4a2 2 0 002 2h3v-4" />
@@ -197,11 +197,11 @@ class Dashboard extends Component {
                       </svg>
                     </div>
                     <div>
-                      <div class="text-gray-600 dark:text-white text-sm">Total Subscribers</div>
-                      <div class="text-gray-900 dark:text-purple-900 text-2xl font-semibold">
+                      <div className="text-gray-600 dark:text-white text-sm">Total Subscribers</div>
+                      <div className="text-gray-900 dark:text-purple-900 text-2xl font-semibold">
                         71,897
-                        <span class="text-green-500 text-sm font-medium flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <span className="text-green-500 text-sm font-medium flex items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
                           </svg>
                           122
@@ -210,11 +210,11 @@ class Dashboard extends Component {
                     </div>
                   </div>
                 </div>
-                <div class="bg-transparent dark:bg-gray-900  shadow-lg rounded-lg m-9 space-y-4">
-                  <div class="flex items-center p-4 space-x-4">
-                    <div class="p-2 bg-purple-200 rounded-full">
+                <div className="bg-transparent dark:bg-gray-900  shadow-lg rounded-lg m-9 space-y-4">
+                  <div className="flex items-center p-4 space-x-4">
+                    <div className="p-2 bg-purple-200 rounded-full">
 
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a2 2 0 00-2-2h-3v4z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 15V7a2 2 0 012-2h10a2 2 0 012 2v8" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 15v4a2 2 0 002 2h3v-4" />
@@ -222,11 +222,11 @@ class Dashboard extends Component {
                       </svg>
                     </div>
                     <div>
-                      <div class="text-gray-600 dark:text-white text-sm">Total Subscribers</div>
-                      <div class="text-gray-900 dark:text-purple-900 text-2xl font-semibold">
+                      <div className="text-gray-600 dark:text-white text-sm">Total Subscribers</div>
+                      <div className="text-gray-900 dark:text-purple-900 text-2xl font-semibold">
                         71,897
-                        <span class="text-green-500 text-sm font-medium flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <span className="text-green-500 text-sm font-medium flex items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
                           </svg>
                           122
@@ -235,11 +235,11 @@ class Dashboard extends Component {
                     </div>
                   </div>
                 </div>
-                <div class="bg-transparent dark:bg-gray-900  shadow-lg rounded-lg m-9 space-y-4">
-                  <div class="flex items-center p-4 space-x-4">
-                    <div class="p-2 bg-purple-200 rounded-full">
+                <div className="bg-transparent dark:bg-gray-900  shadow-lg rounded-lg m-9 space-y-4">
+                  <div className="flex items-center p-4 space-x-4">
+                    <div className="p-2 bg-purple-200 rounded-full">
 
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a2 2 0 00-2-2h-3v4z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 15V7a2 2 0 012-2h10a2 2 0 012 2v8" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 15v4a2 2 0 002 2h3v-4" />
@@ -247,11 +247,11 @@ class Dashboard extends Component {
                       </svg>
                     </div>
                     <div>
-                      <div class="text-gray-600 dark:text-white text-sm">Total Subscribers</div>
-                      <div class="text-gray-900 dark:text-purple-900 text-2xl font-semibold">
+                      <div className="text-gray-600 dark:text-white text-sm">Total Subscribers</div>
+                      <div className="text-gray-900 dark:text-purple-900 text-2xl font-semibold">
                         71,897
-                        <span class="text-green-500 text-sm font-medium flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <span className="text-green-500 text-sm font-medium flex items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
                           </svg>
                           122
