@@ -20,6 +20,7 @@ import DashboardPage from './Components/AdminDashboard';
 import AdminTheme from './pages/Admin/AdminTheme';
 import AdminEvents from './pages/Admin/AdminEvents';
 import "./assets/css/loader.css"
+import { Errorpage } from './pages/404page';
 // import { Provider } from 'react-redux';}
 const CustomLoader = () => (
   <div className='flex items-center justify-center mt-[20%]'>
@@ -45,6 +46,7 @@ function App() {
 
 
             <Route path="/theme/:index" element={<ThemeDetail />} /> 
+            <Route path="*" element={<Errorpage />} /> 
             <Route path="/admin" element={<Suspense fallback={<CustomLoader />}><Dashboardlazy /></Suspense>} />
             <Route path="/admin/manage" element={<ManagePage />} />
             <Route path="/admin/theme" element={<AdminTheme />} />

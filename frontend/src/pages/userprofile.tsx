@@ -14,7 +14,7 @@ class Userprofile extends Component {
                 <Navbar />
                 <div className={`${isDarkmode ? 'dark' : ''} `}>
                     <div className="flex gap-2 lg:flex-row sm:flex-col flex-col w-full p-[5.5rem]  dark:bg-mine bg-gray-100   ">
-                        <div className=" rounded-xl m-2  lg:w-[calc(63%-4px)] sm:w-full h-[506px] dark:bg-m2 bg-blue-100 p-6">
+                        <div className=" rounded-xl m-2  lg:w-[calc(63%-4px)] sm:w-full h-[506px] dark:bg-m2 bg-gray-200 p-6">
 
                             <img
                                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -131,7 +131,7 @@ class Userprofile extends Component {
                     text-gray-400
                   "
                                         >
-                                            <img src={phone}/>
+                                            <img src={phone} />
                                         </div>
 
                                         <input
@@ -175,7 +175,7 @@ class Userprofile extends Component {
                                 <button
                                     type="button"
                                     className="
-                bg-blue-500
+                bg-gray-500
                 hover:bg-blue-700
                 text-white
                 font-bold
@@ -190,7 +190,7 @@ class Userprofile extends Component {
                                 <button
                                     type="button"
                                     className="
-                bg-green-500
+                bg-gray-500
                 hover:bg-green-700
                 text-white
                 font-bold
@@ -207,7 +207,7 @@ class Userprofile extends Component {
 
                         </div>
 
-                        <div className="lg:w-full m-2 sm:w-full sm: h-[506px] h-[506px]  bg-blue-100 dark:bg-m2 relative border-solid rounded-xl ">
+                        <div className="lg:w-full m-2 sm:w-full sm: h-[506px] h-[506px]  bg-gray-200 dark:bg-m2 relative border-solid rounded-xl ">
                             <div className="sm:flex-row flex-col ml-[30px] ">
 
 

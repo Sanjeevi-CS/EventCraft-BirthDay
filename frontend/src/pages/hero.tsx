@@ -9,6 +9,11 @@ import user from "../assets/images/clip-web-design.gif";
 import avatar from "../assets/images/system-regular-8-account.gif"
 import birthday from "../assets/images/undraw_party_re_nmwj.svg";
 import password from "../assets/images/system-regular-40-add-card.gif";
+import {
+  TextRevealCard,
+  TextRevealCardDescription,
+  TextRevealCardTitle,
+} from "../Components/text-reveal-card";
 class Hero extends Component {
 
   constructor(props) {
@@ -50,6 +55,7 @@ class Hero extends Component {
 
   render() {
     return (
+
       <div className={`${this.state.isDarkmode ? 'dark' : ''} `}>
         {/* <h1 className="text-3xl font-bold text-grey  ">Hello</h1> */}
         <header className="fixed w-full">
@@ -629,11 +635,17 @@ class Hero extends Component {
           <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
             <div className="mr-auto place-self-center lg:col-span-7">
               <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
-                OccasionOracle 🥳
+                <TextRevealCard
+                  className="bg-white dark:bg-gray-900 border-none"
+                  text="Celebrate birthdays with.."
+                  revealText="OcassionOracle🥳 "
+                >
+                </TextRevealCard>
+
               </h1>
-              <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+              {/* <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
                 We care for your Janam dhin 😌
-              </p>
+              </p> */}
             </div>
             <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
               <img src={birthday} alt="hero image" />
