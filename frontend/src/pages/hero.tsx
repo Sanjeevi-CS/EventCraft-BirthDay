@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, useState } from "react";
 import heropng from "../assets/images/hero.png";
 import { Button } from "../Components/button";
 import feature1 from "../assets/images/feature-1.png";
@@ -9,650 +9,682 @@ import user from "../assets/images/clip-web-design.gif";
 import avatar from "../assets/images/system-regular-8-account.gif"
 import birthday from "../assets/images/undraw_party_re_nmwj.svg";
 import password from "../assets/images/system-regular-40-add-card.gif";
+import axios from "axios";
 import {
   TextRevealCard,
   TextRevealCardDescription,
   TextRevealCardTitle,
 } from "../Components/text-reveal-card";
-class Hero extends Component {
+import { useLocation, useNavigate } from "react-router-dom";
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isModalOpen: false,
-    };
-    this.state = {
-      isDarkmode: false,
-    };
-    this.state = {
-      isloginModalOpen: false,
-    };
-  }
+const Hero = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDarkmode, setIsDarkmode] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
-  openModal = () => {
-    this.setState({ isModalOpen: true, isloginModalOpen: false });
+  const openModal = () => {
+    setIsModalOpen(true);
+    setIsLoginModalOpen(false);
   };
 
-  closeModal = () => {
-    this.setState({ isModalOpen: false });
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
-  loginopenModal = () => {
-    this.setState({ isloginModalOpen: true, isModalOpen: false });
+  const loginOpenModal = () => {
+    setIsLoginModalOpen(true);
+    setIsModalOpen(false);
   };
 
-  logincloseModal = () => {
-    this.setState({ isloginModalOpen: false });
+  const loginCloseModal = () => {
+    setIsLoginModalOpen(false);
   };
 
-  toggleDarkmode = () => {
-    this.setState(prevState => ({
-      isDarkmode: !prevState.isDarkmode
-    }));
+  const toggleDarkmode = () => {
+    setIsDarkmode(prevState => !prevState);
   };
 
+  const location = useLocation();
+  const navigate = useNavigate();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  render() {
-    return (
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
 
-      <div className={`${this.state.isDarkmode ? 'dark' : ''} `}>
-        {/* <h1 className="text-3xl font-bold text-grey  ">Hello</h1> */}
-        <header className="fixed w-full">
-          <nav className="bg-opacity-50 backdrop-filter backdrop-blur-lg bg-transparent border-gray-200 py-2.5 dark:bg-opacity-50">
-            <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
-              <a href="#" className="flex items-center">
-                <img
-                  src={logo}
-                  className="h-6 mr-3 sm:h-9"
-                  alt="Landwind Logo"
-                />
-                <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-                  OccasionOracle
-                </span>
-              </a>
-              <div className="flex items-center lg:order-2">
-                <button
-                  // href="/login"
-                  onClick={this.loginopenModal}
-                  className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
-                >
-                  Log in
-                </button>{" "}
-                <button
-                  onClick={this.openModal}
-                  className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800"
-                >
-                  Signin
-                </button>
-                <button
-                  data-collapse-toggle="mobile-menu-2"
-                  type="button"
-                  className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                  aria-controls="mobile-menu-2"
-                  aria-expanded="false"
-                >
-                  <span className="sr-only">Open main menu</span>
-                  <svg
-                    className="w-6 h-6"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                  <svg
-                    className="hidden w-6 h-6"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                </button>
-              </div>
-              <div
-                className="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1"
-                id="mobile-menu-2"
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  // const dispatch=useDispatch();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/auth/authenticate",
+        {
+          email: email,
+          password: password,
+          role: "user",
+        }
+      );
+
+      const jwtToken = response.data.token;
+      const role = response.data.userRole;
+      localStorage.setItem("jwtToken", jwtToken);
+      //  localStorage.setItem("name",name);
+      console.log(role);
+      navigate("/themes");
+    } catch (error) {
+      console.log(email);
+    }
+  };
+  return (
+    // Your JSX for the component
+    <div className={`${isDarkmode ? 'dark' : ''} `}>
+      {/* <h1 className="text-3xl font-bold text-grey  ">Hello</h1> */}
+      <header className="fixed w-full">
+        <nav className="bg-opacity-50 backdrop-filter backdrop-blur-lg bg-transparent border-gray-200 py-2.5 dark:bg-opacity-50">
+          <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
+            <a href="#" className="flex items-center">
+              <img
+                src={logo}
+                className="h-6 mr-3 sm:h-9"
+                alt="Landwind Logo"
+              />
+              <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+                OccasionOracle
+              </span>
+            </a>
+            <div className="flex items-center lg:order-2">
+              <button
+                // href="/login"
+                onClick={loginOpenModal}
+                className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
               >
-                <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                  <li>
-                    <a
-                      href="#"
-                      className="block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white"
-                      aria-current="page"
-                    >
-                      Home
-                    </a>
-                  </li>
+                Log in
+              </button>{" "}
+              <button
+                onClick={openModal}
+                className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800"
+              >
+                Signin
+              </button>
+              <button
+                data-collapse-toggle="mobile-menu-2"
+                type="button"
+                className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="mobile-menu-2"
+                aria-expanded="false"
+              >
+                <span className="sr-only">Open main menu</span>
+                <svg
+                  className="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+                <svg
+                  className="hidden w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <div
+              className="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1"
+              id="mobile-menu-2"
+            >
+              <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                <li>
+                  <a
+                    href="#"
+                    className="block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white"
+                    aria-current="page"
+                  >
+                    Home
+                  </a>
+                </li>
 
 
-                  <li>
-                    <a
-                      href="#"
-                      className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                    >
-                      Features
-                    </a>
-                  </li>
+                <li>
+                  <a
+                    href="#"
+                    className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                  >
+                    Features
+                  </a>
+                </li>
 
-                  <li>
-                    <a
-                      href="#"
-                      className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                    >
-                      Contact
-                    </a>
-                  </li>
-                  <li>
-                    <label className='inline-flex cursor-pointer select-none items-center'>
-                      <input
-                        type='checkbox'
-                        onChange={this.toggleDarkmode}
-                        className='sr-only'
-                      />
+                <li>
+                  <a
+                    href="#"
+                    className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                  >
+                    Contact
+                  </a>
+                </li>
+                <li>
+                  <label className='inline-flex cursor-pointer select-none items-center'>
+                    <input
+                      type='checkbox'
+                      onChange={toggleDarkmode}
+                      className='sr-only'
+                    />
 
-                      <div className='shadow-card flex h-[30px] w-[82px] items-center justify-center rounded-md'>
-                        <span
-                          className={`flex h-9 w-9 items-center justify-center rounded ${!this.state.isDarkmode ? 'bg-purple-800 text-white' : 'text-white'
-                            }`}
+                    <div className='shadow-card flex h-[30px] w-[82px] items-center justify-center rounded-md'>
+                      <span
+                        className={`flex h-9 w-9 items-center justify-center rounded ${!isDarkmode ? 'bg-purple-800 text-white' : 'text-white'
+                          }`}
+                      >
+                        <svg
+                          width='16'
+                          height='16'
+                          viewBox='0 0 16 16'
+                          fill='none'
+                          xmlns='http://www.w3.org/2000/svg'
                         >
-                          <svg
-                            width='16'
-                            height='16'
-                            viewBox='0 0 16 16'
-                            fill='none'
-                            xmlns='http://www.w3.org/2000/svg'
-                          >
-                            <g clipPath='url(#clip0_3128_692)'>
-                              <path
-                                fillRule='evenodd'
-                                clipRule='evenodd'
-                                d='M8 0C8.36819 0 8.66667 0.298477 8.66667 0.666667V2C8.66667 2.36819 8.36819 2.66667 8 2.66667C7.63181 2.66667 7.33333 2.36819 7.33333 2V0.666667C7.33333 0.298477 7.63181 0 8 0ZM8 5.33333C6.52724 5.33333 5.33333 6.52724 5.33333 8C5.33333 9.47276 6.52724 10.6667 8 10.6667C9.47276 10.6667 10.6667 9.47276 10.6667 8C10.6667 6.52724 9.47276 5.33333 8 5.33333ZM4 8C4 5.79086 5.79086 4 8 4C10.2091 4 12 5.79086 12 8C12 10.2091 10.2091 12 8 12C5.79086 12 4 10.2091 4 8ZM8.66667 14C8.66667 13.6318 8.36819 13.3333 8 13.3333C7.63181 13.3333 7.33333 13.6318 7.33333 14V15.3333C7.33333 15.7015 7.63181 16 8 16C8.36819 16 8.66667 15.7015 8.66667 15.3333V14ZM2.3411 2.3424C2.60145 2.08205 3.02356 2.08205 3.28391 2.3424L4.23057 3.28906C4.49092 3.54941 4.49092 3.97152 4.23057 4.23187C3.97022 4.49222 3.54811 4.49222 3.28776 4.23187L2.3411 3.28521C2.08075 3.02486 2.08075 2.60275 2.3411 2.3424ZM12.711 11.7682C12.4506 11.5078 12.0285 11.5078 11.7682 11.7682C11.5078 12.0285 11.5078 12.4506 11.7682 12.711L12.7148 13.6577C12.9752 13.918 13.3973 13.918 13.6577 13.6577C13.918 13.3973 13.918 12.9752 13.6577 12.7148L12.711 11.7682ZM0 8C0 7.63181 0.298477 7.33333 0.666667 7.33333H2C2.36819 7.33333 2.66667 7.63181 2.66667 8C2.66667 8.36819 2.36819 8.66667 2 8.66667H0.666667C0.298477 8.66667 0 8.36819 0 8ZM14 7.33333C13.6318 7.33333 13.3333 7.63181 13.3333 8C13.3333 8.36819 13.6318 8.66667 14 8.66667H15.3333C15.7015 8.66667 16 8.36819 16 8C16 7.63181 15.7015 7.33333 15.3333 7.33333H14ZM4.23057 11.7682C4.49092 12.0285 4.49092 12.4506 4.23057 12.711L3.28391 13.6577C3.02356 13.918 2.60145 13.918 2.3411 13.6577C2.08075 13.3973 2.08075 12.9752 2.3411 12.7148L3.28776 11.7682C3.54811 11.5078 3.97022 11.5078 4.23057 11.7682ZM13.6577 3.28521C13.918 3.02486 13.918 2.60275 13.6577 2.3424C13.3973 2.08205 12.9752 2.08205 12.7148 2.3424L11.7682 3.28906C11.5078 3.54941 11.5078 3.97152 11.7682 4.23187C12.0285 4.49222 12.4506 4.49222 12.711 4.23187L13.6577 3.28521Z'
-                                fill='currentColor'
-                              ></path>
-                            </g>
-                            <defs>
-                              <clipPath id='clip0_3128_692'>
-                                <rect width='16' height='16' fill='white'></rect>
-                              </clipPath>
-                            </defs>
-                          </svg>
-                        </span>
-                        <span
-                          className={`flex h-9 w-9 items-center justify-center rounded ${this.state.isDarkmode ? 'bg-purple-900 text-white' : 'text-body-color'
-                            }`}
-                        >
-                          <svg
-                            width='16'
-                            height='16'
-                            viewBox='0 0 16 16'
-                            fill='none'
-                            xmlns='http://www.w3.org/2000/svg'
-                          >
+                          <g clipPath='url(#clip0_3128_692)'>
                             <path
                               fillRule='evenodd'
                               clipRule='evenodd'
-                              d='M8.0547 1.67334C8.18372 1.90227 8.16622 2.18562 8.01003 2.39693C7.44055 3.16737 7.16651 4.11662 7.23776 5.07203C7.30901 6.02744 7.72081 6.92554 8.39826 7.60299C9.07571 8.28044 9.97381 8.69224 10.9292 8.76349C11.8846 8.83473 12.8339 8.5607 13.6043 7.99122C13.8156 7.83502 14.099 7.81753 14.3279 7.94655C14.5568 8.07556 14.6886 8.32702 14.6644 8.58868C14.5479 9.84957 14.0747 11.0512 13.3002 12.053C12.5256 13.0547 11.4818 13.8152 10.2909 14.2454C9.09992 14.6756 7.81108 14.7577 6.57516 14.4821C5.33925 14.2065 4.20738 13.5846 3.312 12.6892C2.41661 11.7939 1.79475 10.662 1.51917 9.42608C1.24359 8.19017 1.32569 6.90133 1.75588 5.71038C2.18606 4.51942 2.94652 3.47561 3.94828 2.70109C4.95005 1.92656 6.15168 1.45335 7.41257 1.33682C7.67423 1.31264 7.92568 1.44442 8.0547 1.67334ZM6.21151 2.96004C5.6931 3.1476 5.20432 3.41535 4.76384 3.75591C3.96242 4.37553 3.35405 5.21058 3.00991 6.16334C2.66576 7.11611 2.60008 8.14718 2.82054 9.13591C3.04101 10.1246 3.5385 11.0301 4.25481 11.7464C4.97111 12.4627 5.87661 12.9602 6.86534 13.1807C7.85407 13.4012 8.88514 13.3355 9.8379 12.9913C10.7907 12.6472 11.6257 12.0388 12.2453 11.2374C12.5859 10.7969 12.8536 10.3081 13.0412 9.78974C12.3391 10.0437 11.586 10.1495 10.8301 10.0931C9.55619 9.99813 8.35872 9.44907 7.45545 8.5458C6.55218 7.64253 6.00312 6.44506 5.90812 5.17118C5.85174 4.4152 5.9575 3.66212 6.21151 2.96004Z'
+                              d='M8 0C8.36819 0 8.66667 0.298477 8.66667 0.666667V2C8.66667 2.36819 8.36819 2.66667 8 2.66667C7.63181 2.66667 7.33333 2.36819 7.33333 2V0.666667C7.33333 0.298477 7.63181 0 8 0ZM8 5.33333C6.52724 5.33333 5.33333 6.52724 5.33333 8C5.33333 9.47276 6.52724 10.6667 8 10.6667C9.47276 10.6667 10.6667 9.47276 10.6667 8C10.6667 6.52724 9.47276 5.33333 8 5.33333ZM4 8C4 5.79086 5.79086 4 8 4C10.2091 4 12 5.79086 12 8C12 10.2091 10.2091 12 8 12C5.79086 12 4 10.2091 4 8ZM8.66667 14C8.66667 13.6318 8.36819 13.3333 8 13.3333C7.63181 13.3333 7.33333 13.6318 7.33333 14V15.3333C7.33333 15.7015 7.63181 16 8 16C8.36819 16 8.66667 15.7015 8.66667 15.3333V14ZM2.3411 2.3424C2.60145 2.08205 3.02356 2.08205 3.28391 2.3424L4.23057 3.28906C4.49092 3.54941 4.49092 3.97152 4.23057 4.23187C3.97022 4.49222 3.54811 4.49222 3.28776 4.23187L2.3411 3.28521C2.08075 3.02486 2.08075 2.60275 2.3411 2.3424ZM12.711 11.7682C12.4506 11.5078 12.0285 11.5078 11.7682 11.7682C11.5078 12.0285 11.5078 12.4506 11.7682 12.711L12.7148 13.6577C12.9752 13.918 13.3973 13.918 13.6577 13.6577C13.918 13.3973 13.918 12.9752 13.6577 12.7148L12.711 11.7682ZM0 8C0 7.63181 0.298477 7.33333 0.666667 7.33333H2C2.36819 7.33333 2.66667 7.63181 2.66667 8C2.66667 8.36819 2.36819 8.66667 2 8.66667H0.666667C0.298477 8.66667 0 8.36819 0 8ZM14 7.33333C13.6318 7.33333 13.3333 7.63181 13.3333 8C13.3333 8.36819 13.6318 8.66667 14 8.66667H15.3333C15.7015 8.66667 16 8.36819 16 8C16 7.63181 15.7015 7.33333 15.3333 7.33333H14ZM4.23057 11.7682C4.49092 12.0285 4.49092 12.4506 4.23057 12.711L3.28391 13.6577C3.02356 13.918 2.60145 13.918 2.3411 13.6577C2.08075 13.3973 2.08075 12.9752 2.3411 12.7148L3.28776 11.7682C3.54811 11.5078 3.97022 11.5078 4.23057 11.7682ZM13.6577 3.28521C13.918 3.02486 13.918 2.60275 13.6577 2.3424C13.3973 2.08205 12.9752 2.08205 12.7148 2.3424L11.7682 3.28906C11.5078 3.54941 11.5078 3.97152 11.7682 4.23187C12.0285 4.49222 12.4506 4.49222 12.711 4.23187L13.6577 3.28521Z'
                               fill='currentColor'
                             ></path>
-                          </svg>
-                        </span>
-                      </div>
-                    </label>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-          {/* SignUP */}
-          {this.state.isModalOpen && (
-            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-              <div
-                className="
-          flex flex-col
-          bg-white
-          shadow-md
-          px-4
-          sm:px-6
-          md:px-8
-          lg:px-10
-          py-8
-          rounded-3xl
-          w-50
-          max-w-md
-          dark:bg-gray-700
-        "
-              >
-                <div className="font-medium self-center text-xl sm:text-3xl text-gray-800 dark:text-white">
-                  Join us Now
-                </div>
-
-                <img src={user} className="h-[10rem] w-[11rem] ml-[2.75rem]" />
-                <div className="mt-4 self-center text-xl sm:text-sm text-gray-800 dark:text-white">
-                  Enter your credentials to get access account
-                </div>
-
-                <div className="mt-10">
-                  <form action="#">
-                    <div className="flex flex-col mb-5">
-                      <label
-                        htmlFor="email"
-                        className="mb-1 text-xs tracking-wide text-gray-600 dark:text-white"
+                          </g>
+                          <defs>
+                            <clipPath id='clip0_3128_692'>
+                              <rect width='16' height='16' fill='white'></rect>
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </span>
+                      <span
+                        className={`flex h-9 w-9 items-center justify-center rounded ${isDarkmode ? 'bg-purple-900 text-white' : 'text-body-color'
+                          }`}
                       >
-                        Name:
-                      </label>
-                      <div className="relative">
-                        <div
-                          className="
-                    inline-flex
-                    items-center
-                    justify-center
-                    absolute
-                    left-[8px]
-                    top-0
-                    h-full
-                    w-[1.5rem]
-                    text-gray-400
-                  "
+                        <svg
+                          width='16'
+                          height='16'
+                          viewBox='0 0 16 16'
+                          fill='none'
+                          xmlns='http://www.w3.org/2000/svg'
                         >
-                          <img src={avatar} />
-                        </div>
-
-                        <input
-                          id="email"
-                          type="email"
-                          name="email"
-                          className="
-                    text-sm
-                    placeholder-gray-500
-                    pl-10
-                    pr-4
-                    rounded-2xl
-                    border border-gray-400
-                    w-full
-                    py-2
-                    focus:outline-none focus:border-blue-400
-                  "
-                          placeholder="Enter your name"
-                        />
-                      </div>
+                          <path
+                            fillRule='evenodd'
+                            clipRule='evenodd'
+                            d='M8.0547 1.67334C8.18372 1.90227 8.16622 2.18562 8.01003 2.39693C7.44055 3.16737 7.16651 4.11662 7.23776 5.07203C7.30901 6.02744 7.72081 6.92554 8.39826 7.60299C9.07571 8.28044 9.97381 8.69224 10.9292 8.76349C11.8846 8.83473 12.8339 8.5607 13.6043 7.99122C13.8156 7.83502 14.099 7.81753 14.3279 7.94655C14.5568 8.07556 14.6886 8.32702 14.6644 8.58868C14.5479 9.84957 14.0747 11.0512 13.3002 12.053C12.5256 13.0547 11.4818 13.8152 10.2909 14.2454C9.09992 14.6756 7.81108 14.7577 6.57516 14.4821C5.33925 14.2065 4.20738 13.5846 3.312 12.6892C2.41661 11.7939 1.79475 10.662 1.51917 9.42608C1.24359 8.19017 1.32569 6.90133 1.75588 5.71038C2.18606 4.51942 2.94652 3.47561 3.94828 2.70109C4.95005 1.92656 6.15168 1.45335 7.41257 1.33682C7.67423 1.31264 7.92568 1.44442 8.0547 1.67334ZM6.21151 2.96004C5.6931 3.1476 5.20432 3.41535 4.76384 3.75591C3.96242 4.37553 3.35405 5.21058 3.00991 6.16334C2.66576 7.11611 2.60008 8.14718 2.82054 9.13591C3.04101 10.1246 3.5385 11.0301 4.25481 11.7464C4.97111 12.4627 5.87661 12.9602 6.86534 13.1807C7.85407 13.4012 8.88514 13.3355 9.8379 12.9913C10.7907 12.6472 11.6257 12.0388 12.2453 11.2374C12.5859 10.7969 12.8536 10.3081 13.0412 9.78974C12.3391 10.0437 11.586 10.1495 10.8301 10.0931C9.55619 9.99813 8.35872 9.44907 7.45545 8.5458C6.55218 7.64253 6.00312 6.44506 5.90812 5.17118C5.85174 4.4152 5.9575 3.66212 6.21151 2.96004Z'
+                            fill='currentColor'
+                          ></path>
+                        </svg>
+                      </span>
                     </div>
-                    <div className="flex flex-col mb-5">
-                      <label
-                        htmlFor="email"
-                        className="mb-1 text-xs tracking-wide text-gray-600 dark:text-white"
-                      >
-                        E-Mail Address:
-                      </label>
-                      <div className="relative">
-                        <div
-                          className="
-                    inline-flex
-                    items-center
-                    justify-center
-                    absolute
-                    left-[8px]
-                    top-0
-                    h-full
-                    w-[1.5rem]
-                    text-gray-400
-                  "
-                        >
-                          <img src={mail} />
-                        </div>
-
-                        <input
-                          id="email"
-                          type="email"
-                          name="email"
-                          className="
-                    text-sm
-                    placeholder-gray-500
-                    pl-10
-                    pr-4
-                    rounded-2xl
-                    border border-gray-400
-                    w-full
-                    py-2
-                    focus:outline-none focus:border-blue-400
-                  "
-                          placeholder="Enter your email"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex flex-col mb-6">
-                      <label
-                        htmlFor="password"
-                        className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600 dark:text-white"
-                      >
-                        Password:
-                      </label>
-                      <div className="relative">
-                        <div
-                          className="
-                    inline-flex
-                    items-center
-                    justify-center
-                    absolute
-                    left-[8px]
-                    top-0
-                    h-full
-                    w-[1.5rem]
-                    text-gray-400
-                  "
-                        >
-                          <img src={password} />
-                        </div>
-
-                        <input
-                          id="password"
-                          type="password"
-                          name="password"
-                          className="
-                    text-sm
-                    placeholder-gray-500
-                    pl-10
-                    pr-4
-                    rounded-2xl
-                    border border-gray-400
-                    w-full
-                    py-2
-                    focus:outline-none focus:border-blue-400
-                  "
-                          placeholder="Enter your password"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex justify-center items-center mt-6">
-                      <a
-                        href="#"
-                        target="_blank"
-                        className="
-            inline-flex
-            items-center
-            text-gray-700
-            font-medium
-            text-xs text-center
-            dark:text-white
-          "
-                      >
-                        <span className="ml-2">
-                          You have an account?
-                          <a
-                            href="#"
-                            onClick={this.loginopenModal}
-                            className="text-xs ml-2 text-blue-500 font-semibold dark:text-purple-500"
-                          >
-                            Login here
-                          </a>
-                        </span>
-                      </a>
-                    </div>
-                    <div className="flex w-full">
-                      <button
-                        type="submit"
-                        className="
-                  flex
-                  mt-2
-                  items-center
-                  justify-center
-                  focus:outline-none
-                  text-white text-sm
-                  sm:text-base
-                  bg-blue-500
-                  hover:bg-blue-600
-                  dark:bg-purple-500
-                  dark:hover:bg-purple-600
-                  rounded-2xl
-                  py-2
-                  w-full
-                  transition
-                  duration-150
-                  ease-in
-                "
-                      >
-                        <span className="mr-2 uppercase">Sign Up</span>
-                        <span>
-                          <svg
-                            className="h-6 w-6"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                        </span>
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          )}
-          {/* Login */}
-          {this.state.isloginModalOpen && (
-            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-              <div
-                className="
-          flex flex-col
-          bg-white
-          dark:bg-gray-700
-          shadow-md
-          px-4
-          sm:px-6
-          md:px-8
-          lg:px-10
-          py-8
-          rounded-3xl
-          w-50
-          max-w-md
-        "
-              >
-                <div className="font-medium self-center text-xl sm:text-3xl text-gray-800 dark:text-white">
-                  Login Now
-                </div>
-
-                <img src={user} className="h-[10rem] w-[11rem] ml-[2.75rem]" />
-                <div className="mt-4 self-center text-xl sm:text-sm text-gray-800 dark:text-white">
-                  Enter your credentials to plan your birthday
-                </div>
-
-                <div className="mt-10">
-                  <form action="#">
-                    <div className="flex flex-col mb-5">
-                      <label
-                        htmlFor="email"
-                        className="mb-1 text-xs tracking-wide text-gray-600 dark:text-white"
-                      >
-                        E-Mail Address:
-                      </label>
-                      <div className="relative">
-                        <div
-                          className="
-                    inline-flex
-                    items-center
-                    justify-center
-                    absolute
-                    left-[8px]
-                    top-0
-                    h-full
-                    w-[1.5rem]
-                    text-gray-400
-                  "
-                        >
-                          <img src={mail} />
-                        </div>
-
-                        <input
-                          id="email"
-                          type="email"
-                          name="email"
-                          className="
-                    text-sm
-                    placeholder-gray-500
-                    pl-10
-                    pr-4
-                    rounded-2xl
-                    border border-gray-400
-                    w-full
-                    py-2
-                    focus:outline-none focus:border-blue-400
-                  "
-                          placeholder="Enter your email"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex flex-col mb-6">
-                      <label
-                        htmlFor="password"
-                        className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600 dark:text-white"
-                      >
-                        Password:
-                      </label>
-                      <div className="relative">
-                        <div
-                          className="
-                    inline-flex
-                    items-center
-                    justify-center
-                    absolute
-                    left-[8px]
-                    top-0
-                    h-full
-                    w-[1.5rem]
-                    text-gray-400
-                  "
-                        >
-
-
-
-                          <img src={password} />
-                        </div>
-
-                        <input
-                          id="password"
-                          type="password"
-                          name="password"
-                          className="
-                    text-sm
-                    placeholder-gray-500
-                    pl-10
-                    pr-4
-                    rounded-2xl
-                    border border-gray-400
-                    w-full
-                    py-2
-                    focus:outline-none focus:border-blue-400
-                  "
-                          placeholder="Enter your password"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex justify-center items-center mt-6">
-                      <a
-                        href="#"
-                        target="_blank"
-                        className="
-            inline-flex
-            items-center
-            text-gray-700
-            dark:text-white
-            font-medium
-            text-xs text-center
-          "
-                      >
-                        <span className="ml-2">
-                          Don't have an account?
-                          <a
-                            href="#"
-                            onClick={this.openModal}
-                            className="text-xs ml-2 text-blue-500 font-semibold dark:text-purple-500"
-                          >
-                            Signup here
-                          </a>
-                        </span>
-                      </a>
-                    </div>
-                    <div className="flex w-full">
-                      <button
-
-                        type="submit"
-                        className="
-                  flex
-                  mt-2
-                  items-center
-                  justify-center
-                  focus:outline-none
-                  text-white text-sm
-                  sm:text-base
-                  bg-blue-500
-                  hover:bg-blue-600
-                  dark:bg-purple-500
-                  dark:hover:bg-purple-600
-                  rounded-2xl
-                  py-2
-                  w-full
-                  transition
-                  duration-150
-                  ease-in
-                "
-                      >
-                        <span className="mr-2 uppercase">Login</span>
-                        <span>
-                          <svg
-                            className="h-6 w-6"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                        </span>
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          )}
-        </header>
-        <section className="bg-white dark:bg-gray-900">
-          <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
-            <div className="mr-auto place-self-center lg:col-span-7">
-              <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
-                <TextRevealCard
-                  className="bg-white dark:bg-gray-900 border-none"
-                  text="Celebrate birthdays with.."
-                  revealText="OcassionOracle🥳 "
-                >
-                </TextRevealCard>
-
-              </h1>
-              {/* <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-                We care for your Janam dhin 😌
-              </p> */}
-            </div>
-            <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-              <img src={birthday} alt="hero image" />
+                  </label>
+                </li>
+              </ul>
             </div>
           </div>
-        </section>
-        {/* <section className="bg-white dark:bg-gray-900">
+        </nav>
+        {/* SignUP */}
+        {isModalOpen && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+            <div
+              className="
+          flex flex-col
+          bg-white
+          shadow-md
+          px-4
+          sm:px-6
+          md:px-8
+          lg:px-10
+          py-8
+          rounded-3xl
+          w-50
+          max-w-md
+          dark:bg-gray-700
+        "
+            >
+              <div className="font-medium self-center text-xl sm:text-3xl text-gray-800 dark:text-white">
+                Join us Now
+              </div>
+
+              <img src={user} className="h-[10rem] w-[11rem] ml-[2.75rem]" />
+              <div className="mt-4 self-center text-xl sm:text-sm text-gray-800 dark:text-white">
+                Enter your credentials to get access account
+              </div>
+
+              <div className="mt-10">
+                <form action="#">
+                  <div className="flex flex-col mb-5">
+                    <label
+                      htmlFor="email"
+                      className="mb-1 text-xs tracking-wide text-gray-600 dark:text-white"
+                    >
+                      Name:
+                    </label>
+                    <div className="relative">
+                      <div
+                        className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    absolute
+                    left-[8px]
+                    top-0
+                    h-full
+                    w-[1.5rem]
+                    text-gray-400
+                  "
+                      >
+                        <img src={avatar} />
+                      </div>
+
+                      <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        className="
+                    text-sm
+                    placeholder-gray-500
+                    pl-10
+                    pr-4
+                    rounded-2xl
+                    border border-gray-400
+                    w-full
+                    py-2
+                    focus:outline-none focus:border-blue-400
+                  "
+                        placeholder="Enter your name"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col mb-5">
+                    <label
+                      htmlFor="email"
+                      className="mb-1 text-xs tracking-wide text-gray-600 dark:text-white"
+                    >
+                      E-Mail Address:
+                    </label>
+                    <div className="relative">
+                      <div
+                        className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    absolute
+                    left-[8px]
+                    top-0
+                    h-full
+                    w-[1.5rem]
+                    text-gray-400
+                  "
+                      >
+                        <img src={mail} />
+                      </div>
+
+                      <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        className="
+                    text-sm
+                    placeholder-gray-500
+                    pl-10
+                    pr-4
+                    rounded-2xl
+                    border border-gray-400
+                    w-full
+                    py-2
+                    focus:outline-none focus:border-blue-400
+                  "
+                        placeholder="Enter your email"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col mb-6">
+                    <label
+                      htmlFor="password"
+                      className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600 dark:text-white"
+                    >
+                      Password:
+                    </label>
+                    <div className="relative">
+                      <div
+                        className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    absolute
+                    left-[8px]
+                    top-0
+                    h-full
+                    w-[1.5rem]
+                    text-gray-400
+                  "
+                      >
+                        <img src={password} />
+                      </div>
+
+                      <input
+                        id="password"
+                        type="password"
+                        name="password"
+                        className="
+                    text-sm
+                    placeholder-gray-500
+                    pl-10
+                    pr-4
+                    rounded-2xl
+                    border border-gray-400
+                    w-full
+                    py-2
+                    focus:outline-none focus:border-blue-400
+                  "
+                        placeholder="Enter your password"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex justify-center items-center mt-6">
+                    <a
+                      href="#"
+                      target="_blank"
+                      className="
+            inline-flex
+            items-center
+            text-gray-700
+            font-medium
+            text-xs text-center
+            dark:text-white
+          "
+                    >
+                      <span className="ml-2">
+                        You have an account?
+                        <a
+                          href="#"
+                          onClick={loginopenModal}
+                          className="text-xs ml-2 text-blue-500 font-semibold dark:text-purple-500"
+                        >
+                          Login here
+                        </a>
+                      </span>
+                    </a>
+                  </div>
+                  <div className="flex w-full">
+                    <button
+                      type="submit"
+                      className="
+                  flex
+                  mt-2
+                  items-center
+                  justify-center
+                  focus:outline-none
+                  text-white text-sm
+                  sm:text-base
+                  bg-blue-500
+                  hover:bg-blue-600
+                  dark:bg-purple-500
+                  dark:hover:bg-purple-600
+                  rounded-2xl
+                  py-2
+                  w-full
+                  transition
+                  duration-150
+                  ease-in
+                "
+                    >
+                      <span className="mr-2 uppercase">Sign Up</span>
+                      <span>
+                        <svg
+                          className="h-6 w-6"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        )}
+        {/* Login */}
+        {isLoginModalOpen && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+            <div
+              className="
+          flex flex-col
+          bg-white
+          dark:bg-gray-700
+          shadow-md
+          px-4
+          sm:px-6
+          md:px-8
+          lg:px-10
+          py-8
+          rounded-3xl
+          w-50
+          max-w-md
+        "
+            >
+              <div className="font-medium self-center text-xl sm:text-3xl text-gray-800 dark:text-white">
+                Login Now
+              </div>
+
+              <img src={user} className="h-[10rem] w-[11rem] ml-[2.75rem]" />
+              <div className="mt-4 self-center text-xl sm:text-sm text-gray-800 dark:text-white">
+                Enter your credentials to plan your birthday
+              </div>
+
+              <div className="mt-10">
+                <form onSubmit={handleSubmit}>
+                  <div className="flex flex-col mb-5">
+                    <label
+                      htmlFor="email"
+                      className="mb-1 text-xs tracking-wide text-gray-600 dark:text-white"
+                    >
+                      E-Mail Address:
+                    </label>
+                    <div className="relative">
+                      <div
+                        className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    absolute
+                    left-[8px]
+                    top-0
+                    h-full
+                    w-[1.5rem]
+                    text-gray-400
+                  "
+                      >
+                        <img src={mail} />
+                      </div>
+
+                      <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        value={email}
+                        onChange={handleEmailChange}
+                        className="
+                    text-sm
+                    placeholder-gray-500
+                    pl-10
+                    pr-4
+                    rounded-2xl
+                    border border-gray-400
+                    w-full
+                    py-2
+                    focus:outline-none focus:border-blue-400
+                  "
+                        placeholder="Enter your email"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col mb-6">
+                    <label
+                      htmlFor="password"
+                      className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600 dark:text-white"
+                    >
+                      Password:
+                    </label>
+                    <div className="relative">
+                      <div
+                        className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    absolute
+                    left-[8px]
+                    top-0
+                    h-full
+                    w-[1.5rem]
+                    text-gray-400
+                  "
+                      >
+
+
+
+                        <img src={password} />
+                      </div>
+
+                      <input
+                        id="password"
+                        type="password"
+                        name="password"
+                        value={password}
+                        onChange={handlePasswordChange}
+                        className="
+                    text-sm
+                    placeholder-gray-500
+                    pl-10
+                    pr-4
+                    rounded-2xl
+                    border border-gray-400
+                    w-full
+                    py-2
+                    focus:outline-none focus:border-blue-400
+                  "
+                        placeholder="Enter your password"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex justify-center items-center mt-6">
+                    <a
+                      href="#"
+                      target="_blank"
+                      className="
+            inline-flex
+            items-center
+            text-gray-700
+            dark:text-white
+            font-medium
+            text-xs text-center
+          "
+                    >
+                      <span className="ml-2">
+                        Don't have an account?
+                        <a
+                          href="#"
+                          onClick={openModal}
+                          className="text-xs ml-2 text-blue-500 font-semibold dark:text-purple-500"
+                        >
+                          Signup here
+                        </a>
+                      </span>
+                    </a>
+                  </div>
+                  <div className="flex w-full">
+                    <button
+
+                      type="submit"
+                      className="
+                  flex
+                  mt-2
+                  items-center
+                  justify-center
+                  focus:outline-none
+                  text-white text-sm
+                  sm:text-base
+                  bg-blue-500
+                  hover:bg-blue-600
+                  dark:bg-purple-500
+                  dark:hover:bg-purple-600
+                  rounded-2xl
+                  py-2
+                  w-full
+                  transition
+                  duration-150
+                  ease-in
+                "
+                    >
+                      <span className="mr-2 uppercase">Login</span>
+                      <span>
+                        <svg
+                          className="h-6 w-6"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+      <section className="bg-white dark:bg-gray-900">
+        <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
+          <div className="mr-auto place-self-center lg:col-span-7">
+            <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
+              <TextRevealCard
+                className="bg-white dark:bg-gray-900 border-none"
+                text="Celebrate birthdays with.."
+                revealText="OcassionOracle🥳 "
+              >
+              </TextRevealCard>
+
+            </h1>
+            {/* <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+                We care for your Janam dhin 😌
+              </p> */}
+          </div>
+          <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
+            <img src={birthday} alt="hero image" />
+          </div>
+        </div>
+      </section>
+      {/* <section className="bg-white dark:bg-gray-900">
           <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16">
             <div className="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 sm:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
               <a href="#" className="flex items-center lg:justify-center">
@@ -865,519 +897,517 @@ class Hero extends Component {
             </div>
           </div>
         </section> */}
-        <section className="bg-gray-50 dark:bg-gray-800">
-          <div className="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
-            <div className="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
-              <div className="text-gray-500 sm:text-lg dark:text-gray-400">
-                <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                  Work with tools you already use
-                </h2>
-                <p className="mb-8 font-light lg:text-xl">
-                  Deliver great service experiences fast - without the
-                  complexity of traditional ITSM solutions. Accelerate critical
-                  development work, eliminate toil, and deploy changes with
-                  ease.
-                </p>
-
-                <ul
-                  role="list"
-                  className="pt-8 space-y-5 border-t border-gray-200 my-7 dark:border-gray-700"
-                >
-                  <li className="flex space-x-3">
-                    <svg
-                      className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                    <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
-                      Continuous integration and deployment
-                    </span>
-                  </li>
-                  <li className="flex space-x-3">
-                    <svg
-                      className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                    <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
-                      Development workflow
-                    </span>
-                  </li>
-                  <li className="flex space-x-3">
-                    <svg
-                      className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                    <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
-                      Knowledge management
-                    </span>
-                  </li>
-                </ul>
-                <p className="mb-8 font-light lg:text-xl">
-                  Deliver great service experiences fast - without the
-                  complexity of traditional ITSM solutions.
-                </p>
-              </div>
-              <img
-                className="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex"
-                src={feature1}
-                alt="dashboard feature image"
-              />
-            </div>
-
-            <div className="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
-              <img
-                className="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex"
-                src={feature2}
-                alt="feature image 2"
-              />
-              <div className="text-gray-500 sm:text-lg dark:text-gray-400">
-                <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                  We invest in the world’s potential
-                </h2>
-                <p className="mb-8 font-light lg:text-xl">
-                  Deliver great service experiences fast - without the
-                  complexity of traditional ITSM solutions. Accelerate critical
-                  development work, eliminate toil, and deploy changes with
-                  ease.
-                </p>
-
-                <ul
-                  role="list"
-                  className="pt-8 space-y-5 border-t border-gray-200 my-7 dark:border-gray-700"
-                >
-                  <li className="flex space-x-3">
-                    <svg
-                      className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                    <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
-                      Dynamic reports and dashboards
-                    </span>
-                  </li>
-                  <li className="flex space-x-3">
-                    <svg
-                      className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                    <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
-                      Templates for everyone
-                    </span>
-                  </li>
-                  <li className="flex space-x-3">
-                    <svg
-                      className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                    <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
-                      Development workflow
-                    </span>
-                  </li>
-                  <li className="flex space-x-3">
-                    <svg
-                      className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                    <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
-                      Limitless business automation
-                    </span>
-                  </li>
-                  <li className="flex space-x-3">
-                    <svg
-                      className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                    <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
-                      Knowledge management
-                    </span>
-                  </li>
-                </ul>
-                <p className="font-light lg:text-xl">
-                  Deliver great service experiences fast - without the
-                  complexity of traditional ITSM solutions.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-white dark:bg-gray-900">
-          <div className="items-center max-w-screen-xl px-4 py-8 mx-auto lg:grid lg:grid-cols-4 lg:gap-16 xl:gap-24 lg:py-24 lg:px-6">
-            <div className="col-span-2 mb-8">
-              <p className="text-lg font-medium text-purple-600 dark:text-purple-500">
-                Trusted Worldwide
-              </p>
-              <h2 className="mt-3 mb-4 text-3xl font-extrabold tracking-tight text-gray-900 md:text-3xl dark:text-white">
-                Trusted by over 600 million users and 10,000 teams
+      <section className="bg-gray-50 dark:bg-gray-800">
+        <div className="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
+          <div className="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
+            <div className="text-gray-500 sm:text-lg dark:text-gray-400">
+              <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Work with tools you already use
               </h2>
-              <p className="font-light text-gray-500 sm:text-xl dark:text-gray-400">
-                Our rigorous security and compliance standards are at the heart
-                of all we do. We work tirelessly to protect you and your
-                customers.
+              <p className="mb-8 font-light lg:text-xl">
+                Deliver great service experiences fast - without the
+                complexity of traditional ITSM solutions. Accelerate critical
+                development work, eliminate toil, and deploy changes with
+                ease.
               </p>
-              <div className="pt-6 mt-6 space-y-4 border-t border-gray-200 dark:border-gray-700">
-                <div>
-                  <a
-                    href="#"
-                    className="inline-flex items-center text-base font-medium text-purple-600 hover:text-purple-800 dark:text-purple-500 dark:hover:text-purple-700"
+
+              <ul
+                role="list"
+                className="pt-8 space-y-5 border-t border-gray-200 my-7 dark:border-gray-700"
+              >
+                <li className="flex space-x-3">
+                  <svg
+                    className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    Explore Legality Guide
-                    <svg
-                      className="w-5 h-5 ml-1"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                  </a>
-                </div>
-                <div>
-                  <a
-                    href="#"
-                    className="inline-flex items-center text-base font-medium text-purple-600 hover:text-purple-800 dark:text-purple-500 dark:hover:text-purple-700"
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                  <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
+                    Continuous integration and deployment
+                  </span>
+                </li>
+                <li className="flex space-x-3">
+                  <svg
+                    className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    Visit the Trust Center
-                    <svg
-                      className="w-5 h-5 ml-1"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                  </a>
-                </div>
-              </div>
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                  <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
+                    Development workflow
+                  </span>
+                </li>
+                <li className="flex space-x-3">
+                  <svg
+                    className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                  <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
+                    Knowledge management
+                  </span>
+                </li>
+              </ul>
+              <p className="mb-8 font-light lg:text-xl">
+                Deliver great service experiences fast - without the
+                complexity of traditional ITSM solutions.
+              </p>
             </div>
-            <div className="col-span-2 space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0">
+            <img
+              className="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex"
+              src={feature1}
+              alt="dashboard feature image"
+            />
+          </div>
+
+          <div className="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
+            <img
+              className="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex"
+              src={feature2}
+              alt="feature image 2"
+            />
+            <div className="text-gray-500 sm:text-lg dark:text-gray-400">
+              <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                We invest in the world’s potential
+              </h2>
+              <p className="mb-8 font-light lg:text-xl">
+                Deliver great service experiences fast - without the
+                complexity of traditional ITSM solutions. Accelerate critical
+                development work, eliminate toil, and deploy changes with
+                ease.
+              </p>
+
+              <ul
+                role="list"
+                className="pt-8 space-y-5 border-t border-gray-200 my-7 dark:border-gray-700"
+              >
+                <li className="flex space-x-3">
+                  <svg
+                    className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                  <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
+                    Dynamic reports and dashboards
+                  </span>
+                </li>
+                <li className="flex space-x-3">
+                  <svg
+                    className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                  <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
+                    Templates for everyone
+                  </span>
+                </li>
+                <li className="flex space-x-3">
+                  <svg
+                    className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                  <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
+                    Development workflow
+                  </span>
+                </li>
+                <li className="flex space-x-3">
+                  <svg
+                    className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                  <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
+                    Limitless business automation
+                  </span>
+                </li>
+                <li className="flex space-x-3">
+                  <svg
+                    className="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                  <span className="text-base font-medium leading-tight text-gray-900 dark:text-white">
+                    Knowledge management
+                  </span>
+                </li>
+              </ul>
+              <p className="font-light lg:text-xl">
+                Deliver great service experiences fast - without the
+                complexity of traditional ITSM solutions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white dark:bg-gray-900">
+        <div className="items-center max-w-screen-xl px-4 py-8 mx-auto lg:grid lg:grid-cols-4 lg:gap-16 xl:gap-24 lg:py-24 lg:px-6">
+          <div className="col-span-2 mb-8">
+            <p className="text-lg font-medium text-purple-600 dark:text-purple-500">
+              Trusted Worldwide
+            </p>
+            <h2 className="mt-3 mb-4 text-3xl font-extrabold tracking-tight text-gray-900 md:text-3xl dark:text-white">
+              Trusted by over 600 million users and 10,000 teams
+            </h2>
+            <p className="font-light text-gray-500 sm:text-xl dark:text-gray-400">
+              Our rigorous security and compliance standards are at the heart
+              of all we do. We work tirelessly to protect you and your
+              customers.
+            </p>
+            <div className="pt-6 mt-6 space-y-4 border-t border-gray-200 dark:border-gray-700">
               <div>
-                <svg
-                  className="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
+                <a
+                  href="#"
+                  className="inline-flex items-center text-base font-medium text-purple-600 hover:text-purple-800 dark:text-purple-500 dark:hover:text-purple-700"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-                <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                  99.99% uptime
-                </h3>
-                <p className="font-light text-gray-500 dark:text-gray-400">
-                  For Landwind, with zero maintenance downtime
-                </p>
+                  Explore Legality Guide
+                  <svg
+                    className="w-5 h-5 ml-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                </a>
               </div>
               <div>
-                <svg
-                  className="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
+                <a
+                  href="#"
+                  className="inline-flex items-center text-base font-medium text-purple-600 hover:text-purple-800 dark:text-purple-500 dark:hover:text-purple-700"
                 >
-                  <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
-                </svg>
-                <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                  600M+ Users
-                </h3>
-                <p className="font-light text-gray-500 dark:text-gray-400">
-                  Trusted by over 600 milion users around the world
-                </p>
-              </div>
-              <div>
-                <svg
-                  className="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-                <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                  100+ countries
-                </h3>
-                <p className="font-light text-gray-500 dark:text-gray-400">
-                  Have used Landwind to create functional websites
-                </p>
-              </div>
-              <div>
-                <svg
-                  className="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
-                </svg>
-                <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                  5+ Million
-                </h3>
-                <p className="font-light text-gray-500 dark:text-gray-400">
-                  Transactions per day
-                </p>
+                  Visit the Trust Center
+                  <svg
+                    className="w-5 h-5 ml-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
-        </section>
-
-        <section className="bg-gray-50 dark:bg-gray-800">
-          <div className="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-24 lg:px-6">
-            <figure className="max-w-screen-md mx-auto">
+          <div className="col-span-2 space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0">
+            <div>
               <svg
-                className="h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600"
-                viewBox="0 0 24 27"
-                fill="none"
+                className="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500"
+                fill="currentColor"
+                viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z"
-                  fill="currentColor"
-                />
+                  fillRule="evenodd"
+                  d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z"
+                  clipRule="evenodd"
+                ></path>
               </svg>
-              <blockquote>
-                <p className="text-xl font-medium text-gray-900 md:text-2xl dark:text-white">
-                  &quot;Landwind is just awesome. It contains tons of
-                  predesigned components and pages starting from login screen to
-                  complex dashboard. Perfect choice for your next SaaS
-                  application.&quot;
-                </p>
-              </blockquote>
-              <figcaption className="flex items-center justify-center mt-6 space-x-3">
-                <img
-                  className="w-6 h-6 rounded-full"
-                  src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png"
-                  alt="profile picture"
-                />
-                <div className="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
-                  <div className="pr-3 font-medium text-gray-900 dark:text-white">
-                    Micheal Gough
-                  </div>
-                  <div className="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">
-                    CEO at Google
-                  </div>
-                </div>
-              </figcaption>
-            </figure>
-          </div>
-        </section>
-
-        <footer className="bg-white dark:bg-gray-800">
-          <div className="max-w-screen-xl p-4 py-6 mx-auto lg:py-16 md:p-8 lg:p-10">
-            <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-5">
-              <div>
-                <h3 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                  Company
-                </h3>
-                <ul className="text-gray-500 dark:text-gray-400">
-                  <li className="mb-4">
-                    <a href="#" className=" hover:underline">
-                      About
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Careers
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Brand Center
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Blog
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                  Help center
-                </h3>
-                <ul className="text-gray-500 dark:text-gray-400">
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Discord Server
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Twitter
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Facebook
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Contact Us
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                  Legal
-                </h3>
-                <ul className="text-gray-500 dark:text-gray-400">
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Privacy Policy
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Licensing
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Terms
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                  Company
-                </h3>
-                <ul className="text-gray-500 dark:text-gray-400">
-                  <li className="mb-4">
-                    <a href="#" className=" hover:underline">
-                      About
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Careers
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Brand Center
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Blog
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                  Download
-                </h3>
-                <ul className="text-gray-500 dark:text-gray-400">
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      iOS
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Android
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Windows
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      MacOS
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              <h3 className="mb-2 text-2xl font-bold dark:text-white">
+                99.99% uptime
+              </h3>
+              <p className="font-light text-gray-500 dark:text-gray-400">
+                For Landwind, with zero maintenance downtime
+              </p>
             </div>
-            <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+            <div>
+              <svg
+                className="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
+              </svg>
+              <h3 className="mb-2 text-2xl font-bold dark:text-white">
+                600M+ Users
+              </h3>
+              <p className="font-light text-gray-500 dark:text-gray-400">
+                Trusted by over 600 milion users around the world
+              </p>
+            </div>
+            <div>
+              <svg
+                className="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+              <h3 className="mb-2 text-2xl font-bold dark:text-white">
+                100+ countries
+              </h3>
+              <p className="font-light text-gray-500 dark:text-gray-400">
+                Have used Landwind to create functional websites
+              </p>
+            </div>
+            <div>
+              <svg
+                className="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
+              </svg>
+              <h3 className="mb-2 text-2xl font-bold dark:text-white">
+                5+ Million
+              </h3>
+              <p className="font-light text-gray-500 dark:text-gray-400">
+                Transactions per day
+              </p>
+            </div>
           </div>
-        </footer>
-      </div>
-    );
-  }
-}
+        </div>
+      </section>
 
+      <section className="bg-gray-50 dark:bg-gray-800">
+        <div className="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-24 lg:px-6">
+          <figure className="max-w-screen-md mx-auto">
+            <svg
+              className="h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600"
+              viewBox="0 0 24 27"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z"
+                fill="currentColor"
+              />
+            </svg>
+            <blockquote>
+              <p className="text-xl font-medium text-gray-900 md:text-2xl dark:text-white">
+                &quot;Landwind is just awesome. It contains tons of
+                predesigned components and pages starting from login screen to
+                complex dashboard. Perfect choice for your next SaaS
+                application.&quot;
+              </p>
+            </blockquote>
+            <figcaption className="flex items-center justify-center mt-6 space-x-3">
+              <img
+                className="w-6 h-6 rounded-full"
+                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png"
+                alt="profile picture"
+              />
+              <div className="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
+                <div className="pr-3 font-medium text-gray-900 dark:text-white">
+                  Micheal Gough
+                </div>
+                <div className="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">
+                  CEO at Google
+                </div>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <footer className="bg-white dark:bg-gray-800">
+        <div className="max-w-screen-xl p-4 py-6 mx-auto lg:py-16 md:p-8 lg:p-10">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-5">
+            <div>
+              <h3 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                Company
+              </h3>
+              <ul className="text-gray-500 dark:text-gray-400">
+                <li className="mb-4">
+                  <a href="#" className=" hover:underline">
+                    About
+                  </a>
+                </li>
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Careers
+                  </a>
+                </li>
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Brand Center
+                  </a>
+                </li>
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Blog
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                Help center
+              </h3>
+              <ul className="text-gray-500 dark:text-gray-400">
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Discord Server
+                  </a>
+                </li>
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Twitter
+                  </a>
+                </li>
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Facebook
+                  </a>
+                </li>
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Contact Us
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                Legal
+              </h3>
+              <ul className="text-gray-500 dark:text-gray-400">
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Privacy Policy
+                  </a>
+                </li>
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Licensing
+                  </a>
+                </li>
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Terms
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                Company
+              </h3>
+              <ul className="text-gray-500 dark:text-gray-400">
+                <li className="mb-4">
+                  <a href="#" className=" hover:underline">
+                    About
+                  </a>
+                </li>
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Careers
+                  </a>
+                </li>
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Brand Center
+                  </a>
+                </li>
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Blog
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                Download
+              </h3>
+              <ul className="text-gray-500 dark:text-gray-400">
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    iOS
+                  </a>
+                </li>
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Android
+                  </a>
+                </li>
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Windows
+                  </a>
+                </li>
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    MacOS
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+        </div>
+      </footer>
+    </div>
+  );
+};
 export default Hero;
