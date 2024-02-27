@@ -1,8 +1,8 @@
 # EventCraft-BirthDay
 
-## Day 1 : https://github.com/Sanjeevi-CS/EventCraft-BirthDay/tree/60e743cb2bacb44288f15207b5a3bf976af26bc8
+### Day 1 : https://github.com/Sanjeevi-CS/EventCraft-BirthDay/tree/60e743cb2bacb44288f15207b5a3bf976af26bc8
 
-## Day 2 : https://github.com/Sanjeevi-CS/EventCraft-BirthDay/tree/bdaf235088f0a53bbeff23f848972e897cbcd411
+### Day 2 : https://github.com/Sanjeevi-CS/EventCraft-BirthDay/tree/bdaf235088f0a53bbeff23f848972e897cbcd411
 
 ## Day 3 : https://github.com/Sanjeevi-CS/EventCraft-BirthDay/tree/e36d28ee866bbf16ca16ae2166b147b1280f94f8
 
