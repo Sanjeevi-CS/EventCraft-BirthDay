@@ -26,7 +26,9 @@ public class ApplicationConfig {
     // 1.
     @Bean // This method repesents a Bean, Bean should always be public not private
     public UserDetailsService userDetailsService() {
+    
         return username -> userRepository.findByEmail(username)
+        
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
