@@ -39,6 +39,7 @@ public class ThemeController {
         // this.themeSampleService = themesample;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get/themes")
     public ResponseEntity<List<ThemeModal>> getAllProducts() {
         List<ThemeModal> themes = themeService.getDetails();
