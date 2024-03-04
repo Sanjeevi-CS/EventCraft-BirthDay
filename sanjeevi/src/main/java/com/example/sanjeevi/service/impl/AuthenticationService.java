@@ -87,21 +87,12 @@ public class AuthenticationService {
                 authenticationManager.authenticate(
                                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
                 var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-                if (request.getRole().equals("admin") && user.getRole() != Role.ADMIN) {
-                        return AuthenticationResponse.builder()
-                                        .token("Invalid Credentials")
-                                        .build();
-                }
-                if (request.getRole().equals("user") && user.getRole() != Role.USER) {
-                        return AuthenticationResponse.builder()
-                                        .token("Invalid Credentials")
-                                        .build();
-                }
+              
                 var jwtToken = jwtService.generateToken(user);
                 var userRole = (user.getRole() == Role.ADMIN) ? "admin" : "user";
                 return AuthenticationResponse.builder()
                                 .token(jwtToken)
-                                .userRole(userRole)
+                                // .userRole(userRole)
                                 .build();
         }
 }

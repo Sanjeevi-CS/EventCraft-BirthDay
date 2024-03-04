@@ -42,10 +42,7 @@ public class ThemesServices {
         return "Successfully deleted";
     }
 
-    public String updateTheme(int themeId, ThemeModal theme) {
-        themeRepo.save(theme);
-        return "Successfully updated";
-    }
+  
 
     public List<ThemeModal> getDetails() {
         List<ThemeModal> arr = new ArrayList<>();

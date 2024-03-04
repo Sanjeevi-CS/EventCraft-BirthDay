@@ -34,9 +34,9 @@ public class EventServices {
         return "Successfully deleted";
     }
 
-    public String updateEvent(int eventId, EventModel event) {
-        eventRepo.save(event);
-        return "Successfully updated";
+    public EventModel updateEvent(int eventId, EventModel event) {
+        EventModel eventModal = eventRepo.findById(eventId).get();
+        return eventRepo.save(eventModal);
     }
 
     public List<EventModel> getDetails() {

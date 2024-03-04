@@ -417,7 +417,7 @@ const Hero = () => {
                         You have an account?
                         <a
                           href="#"
-                          onClick={loginopenModal}
+                          onClick={loginOpenModal}
                           className="text-xs ml-2 text-blue-500 font-semibold dark:text-purple-500"
                         >
                           Login here

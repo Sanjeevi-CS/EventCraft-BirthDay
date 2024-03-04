@@ -1,8 +1,8 @@
 package com.example.sanjeevi.config;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,23 +24,24 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf()
-                .disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**",
+                .csrf(csrf -> csrf
+                        .disable())
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/api/v1/auth/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html/",
-                                "/v3/api-docs/**"
-                )
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                                "/admin/**",
+                                "/user/**",
+                                "/v3/api-docs/**")
+                        .permitAll())
+                // All other request need to be authentic
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/api/v1/auth/add/")
+                        .authenticated())
+                .sessionManagement(management -> management
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider) // 1. Here we need to tell spring which authentication
-                                                                // provider we are going to use
+                // provider we are going to use
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // 2. Adding a
                                                                                              // jwtAuthFilter
                                                                                              // before
