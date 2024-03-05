@@ -73,10 +73,10 @@ const Hero = () => {
       );
 
       const jwtToken = response.data.token;
-      const role = response.data.userRole;
+     
       localStorage.setItem("jwtToken", jwtToken);
       //  localStorage.setItem("name",name);
-      console.log(role);
+      
       navigate("/themes");
     } catch (error) {
       console.log(email);

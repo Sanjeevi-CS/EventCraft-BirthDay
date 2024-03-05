@@ -43,15 +43,15 @@ function App() {
             <Route path="/themes" element={<Suspense fallback={<CustomLoader />}><Themeslazy /></Suspense>} />
             <Route path="/userprofile" element={<Suspense fallback={<CustomLoader />}><Userprofilelazy /></Suspense>} />
             {/* <Route path="/themes/:index" element={<Suspense fallback={<CustomLoader />}><ThemeDetaillazy /></Suspense>} /> */}
-
-
             <Route path="/theme/:index" element={<ThemeDetail />} /> 
-            <Route path="*" element={<Errorpage />} /> 
+
+
             <Route path="/admin" element={<Suspense fallback={<CustomLoader />}><Dashboardlazy /></Suspense>} />
             <Route path="/admin/manage" element={<ManagePage />} />
             <Route path="/admin/theme" element={<AdminTheme />} />
             <Route path="/admin/events" element={<AdminEvents />} />
 
+            <Route path="*" element={<Errorpage />} /> 
           </Routes>
         </BrowserRouter>
       </div>

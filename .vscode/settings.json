@@ -1,4 +1,17 @@
 {
   "cSpell.words": ["Darkmode"],
-  "java.configuration.updateBuildConfiguration": "interactive"
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "askForPassword": true,
+      "driver": "PostgreSQL",
+      "name": "EventCraft",
+      "group": "EventCraft",
+      "database": "eventcraft",
+      "username": "postgres"
+    }
+  ]
 }
