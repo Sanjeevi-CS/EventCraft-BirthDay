@@ -4,11 +4,12 @@ import { Button } from "../Components/button";
 import feature1 from "../assets/images/feature-1.png";
 import feature2 from "../assets/images/feature-2.png";
 import logo from "../assets/images/logo.svg";
+import { useJwt } from "react-jwt";
 import mail from "../assets/images/system-regular-59-email.gif";
 import user from "../assets/images/clip-web-design.gif";
 import avatar from "../assets/images/system-regular-8-account.gif"
 import birthday from "../assets/images/undraw_party_re_nmwj.svg";
-import password from "../assets/images/system-regular-40-add-card.gif";
+import passwordImg from "../assets/images/system-regular-40-add-card.gif";
 import axios from "axios";
 import {
   TextRevealCard,
@@ -59,6 +60,7 @@ const Hero = () => {
   };
 
   // const dispatch=useDispatch();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -73,10 +75,11 @@ const Hero = () => {
       );
 
       const jwtToken = response.data.token;
-     
+
       localStorage.setItem("jwtToken", jwtToken);
       //  localStorage.setItem("name",name);
-      
+      // const decode = jwt_decode(jwtToken);
+
       navigate("/themes");
     } catch (error) {
       console.log(email);
@@ -241,9 +244,32 @@ const Hero = () => {
             </div>
           </div>
         </nav>
+
+
+      </header>
+      <section className="bg-white dark:bg-gray-900">
+        <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
+          <div className="mr-auto place-self-center lg:col-span-7">
+            <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
+              <TextRevealCard
+                className="bg-white dark:bg-gray-900 border-none"
+                text="Celebrate birthdays with.."
+                revealText="OcassionOracle🥳 "
+              >
+              </TextRevealCard>
+
+            </h1>
+            {/* <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+                We care for your Janam dhin 😌
+              </p> */}
+          </div>
+          <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
+            <img src={birthday} alt="hero image" />
+          </div>
+        </div>
         {/* SignUP */}
         {isModalOpen && (
-          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="z-50 fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
             <div
               className="
           flex flex-col
@@ -471,7 +497,7 @@ const Hero = () => {
         )}
         {/* Login */}
         {isLoginModalOpen && (
-          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="z-50 fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
             <div
               className="
           flex flex-col
@@ -662,27 +688,6 @@ const Hero = () => {
             </div>
           </div>
         )}
-      </header>
-      <section className="bg-white dark:bg-gray-900">
-        <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
-          <div className="mr-auto place-self-center lg:col-span-7">
-            <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
-              <TextRevealCard
-                className="bg-white dark:bg-gray-900 border-none"
-                text="Celebrate birthdays with.."
-                revealText="OcassionOracle🥳 "
-              >
-              </TextRevealCard>
-
-            </h1>
-            {/* <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-                We care for your Janam dhin 😌
-              </p> */}
-          </div>
-          <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-            <img src={birthday} alt="hero image" />
-          </div>
-        </div>
       </section>
       {/* <section className="bg-white dark:bg-gray-900">
           <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16">

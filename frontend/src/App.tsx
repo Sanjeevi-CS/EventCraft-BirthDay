@@ -3,6 +3,7 @@
 // import viteLogo from '/vite.svg'
 import React from 'react';
 import './index.css'
+import { Toaster } from 'sonner';
 import { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 const Herolazy = React.lazy(() => import('./pages/hero'));
@@ -13,7 +14,7 @@ const Themeslazy = React.lazy(() => import('./pages/themes'));
 // import Themes from './pages/themes';
 
 import ThemeDetail from './Components/ThemeDetail';
-const Userprofilelazy= React.lazy(() => import('./pages/userprofile'));
+const Userprofilelazy = React.lazy(() => import('./pages/userprofile'));
 import Userprofile from './pages/userprofile';
 import ManagePage from './pages/Managepage';
 import DashboardPage from './Components/AdminDashboard';
@@ -37,13 +38,15 @@ function App() {
   return (
     <>
       <div>
+        <Toaster richColors position="top-right" />
         <BrowserRouter>
           <Routes>
+
             <Route path="/" element={<Suspense fallback={<CustomLoader />}><Herolazy /></Suspense>} />
             <Route path="/themes" element={<Suspense fallback={<CustomLoader />}><Themeslazy /></Suspense>} />
             <Route path="/userprofile" element={<Suspense fallback={<CustomLoader />}><Userprofilelazy /></Suspense>} />
             {/* <Route path="/themes/:index" element={<Suspense fallback={<CustomLoader />}><ThemeDetaillazy /></Suspense>} /> */}
-            <Route path="/theme/:index" element={<ThemeDetail />} /> 
+            <Route path="/theme/:index" element={<ThemeDetail />} />
 
 
             <Route path="/admin" element={<Suspense fallback={<CustomLoader />}><Dashboardlazy /></Suspense>} />
@@ -51,7 +54,7 @@ function App() {
             <Route path="/admin/theme" element={<AdminTheme />} />
             <Route path="/admin/events" element={<AdminEvents />} />
 
-            <Route path="*" element={<Errorpage />} /> 
+            <Route path="*" element={<Errorpage />} />
           </Routes>
         </BrowserRouter>
       </div>
