@@ -33,6 +33,10 @@ class navbar extends Component {
       }
     );
   };
+
+  logout = () => {
+    sessionStorage.clear();
+  }
   render() {
     const { isDropdownOpen } = this.state;
     return (
@@ -153,7 +157,7 @@ class navbar extends Component {
 
                       <a href="/userprofile" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-0">Your Profile</a>
                       {/* <a href="/admin/manage" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-1">Manage</a> */}
-                      <a href="/" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-2">Sign out</a>
+                      <a href='/' className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-2" onClick={this.logout}>Sign out</a>
                     </div>
                   )}
                 </div>

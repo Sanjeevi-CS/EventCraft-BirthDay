@@ -50,7 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         jwtToken = authHeader.substring(7);
         userEmail = jwtService.extractUserEmail(jwtToken); // Will go to jwtService
-
+        
         // 2.. Checking if userEmail is not null and I want to check that user is not
         // authenticated yet
         // 3. If user is authenticated then I don't want to check all the condition

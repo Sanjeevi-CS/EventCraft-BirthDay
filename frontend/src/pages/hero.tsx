@@ -10,6 +10,10 @@ import user from "../assets/images/clip-web-design.gif";
 import avatar from "../assets/images/system-regular-8-account.gif"
 import birthday from "../assets/images/undraw_party_re_nmwj.svg";
 import passwordImg from "../assets/images/system-regular-40-add-card.gif";
+import { setToken } from "../redux/action";
+
+import { useDispatch } from 'react-redux';
+import { toast } from "sonner";
 import axios from "axios";
 import {
   TextRevealCard,
@@ -50,6 +54,8 @@ const Hero = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [mobileNumber, setmobileNumber] = useState("");
+  const [username, setUsername] = useState("");
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -58,6 +64,14 @@ const Hero = () => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+
+  const handleMobileChange = (e) => {
+    setmobileNumber(e.target.value);
+  }
+
+  const handleNameChange = (e) => {
+    setUsername(e.target.value);
+  }
 
   // const dispatch=useDispatch();
 
@@ -73,20 +87,40 @@ const Hero = () => {
           role: "user",
         }
       );
-
       const jwtToken = response.data.token;
-
-      localStorage.setItem("jwtToken", jwtToken);
-      //  localStorage.setItem("name",name);
-      // const decode = jwt_decode(jwtToken);
+      sessionStorage.setItem("jwtToken", jwtToken);
 
       navigate("/themes");
+      toast.success("Welcome!");
     } catch (error) {
-      console.log(email);
+      toast.error('Invalid Credentials');
+    }
+  };
+
+  const handleSignin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/auth/register",
+        {
+          email: email,
+          password: password,
+          name: username,
+          mobileNumber: mobileNumber,
+          userRole: "user",
+        }
+      );
+      const jwtToken = response.data.token;
+      sessionStorage.setItem("jwtToken", jwtToken);
+      navigate("/themes");
+      toast.success("Welcome!");
+    } catch (error) {
+      toast.error('Invalid Credentials');
     }
   };
   return (
-    // Your JSX for the component
+
     <div className={`${isDarkmode ? 'dark' : ''} `}>
       {/* <h1 className="text-3xl font-bold text-grey  ">Hello</h1> */}
       <header className="fixed w-full">
@@ -296,7 +330,7 @@ const Hero = () => {
               </div>
 
               <div className="mt-10">
-                <form action="#">
+                <form onSubmit={handleSignin}>
                   <div className="flex flex-col mb-5">
                     <label
                       htmlFor="email"
@@ -322,9 +356,11 @@ const Hero = () => {
                       </div>
 
                       <input
-                        id="email"
-                        type="email"
-                        name="email"
+                        id="name"
+                        type="text"
+                        name="name"
+                        value={username}
+                        onChange={handleNameChange}
                         className="
                     text-sm
                     placeholder-gray-500
@@ -368,6 +404,8 @@ const Hero = () => {
                         id="email"
                         type="email"
                         name="email"
+                        value={email}
+                        onChange={handleEmailChange}
                         className="
                     text-sm
                     placeholder-gray-500
@@ -404,13 +442,15 @@ const Hero = () => {
                     text-gray-400
                   "
                       >
-                        <img src={password} />
+                        <img src={passwordImg} />
                       </div>
 
                       <input
                         id="password"
                         type="password"
                         name="password"
+                        value={password}
+                        onChange={handlePasswordChange}
                         className="
                     text-sm
                     placeholder-gray-500
@@ -423,6 +463,51 @@ const Hero = () => {
                     focus:outline-none focus:border-blue-400
                   "
                         placeholder="Enter your password"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col mb-6">
+                    <label
+                      htmlFor="password"
+                      className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600 dark:text-white"
+                    >
+                      Mobile Number:
+                    </label>
+                    <div className="relative">
+                      <div
+                        className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    absolute
+                    left-[8px]
+                    top-0
+                    h-full
+                    w-[1.5rem]
+                    text-gray-400
+                  "
+                      >
+                        <img src={password} />
+                      </div>
+
+                      <input
+                        id="mobileNumber"
+                        type="text"
+                        name="mobileNumber"
+                        value={mobileNumber}
+                        onChange={handleMobileChange}
+                        className="
+                    text-sm
+                    placeholder-gray-500
+                    pl-10
+                    pr-4
+                    rounded-2xl
+                    border border-gray-400
+                    w-full
+                    py-2
+                    focus:outline-none focus:border-blue-400
+                  "
+                        placeholder="Enter your mobile number"
                       />
                     </div>
                   </div>
@@ -594,7 +679,7 @@ const Hero = () => {
 
 
 
-                        <img src={password} />
+                        <img src={passwordImg} />
                       </div>
 
                       <input

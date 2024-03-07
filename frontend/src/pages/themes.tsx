@@ -10,13 +10,68 @@ import Footer from "../Components/footer";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/theme-repeator.css"
 import RootState from "../redux/store";
+import { useJwt } from "react-jwt";
+import { toast } from "sonner";
+
 import { connect } from 'react-redux';
+import axios from "axios";
 interface ThemesProps {
     isDarkmode: boolean;
 }
 const Themes: React.FC<ThemesProps> = ({ isDarkmode }) => {
-
+    const token = sessionStorage.getItem('jwtToken');
     const navigate = useNavigate();
+    const handleSubmit = async () => {
+       
+        try {
+            const response = await axios.get(
+                "http://localhost:8080/api/v1/auth/getuser/user2@gmail.com",
+
+            );
+            console.log(response);
+
+        } catch (error) {
+            toast.error('Invalid Credentials');
+        }
+    };
+    useEffect(() => {
+        const decodeToken = (token) => {
+            if (!token) {
+                navigate("/");
+                toast.error("Credentials Required!");
+                return null;
+            }
+
+            try {
+                const payloadBase64 = token.split('.')[1];
+                const decodedToken = JSON.parse(atob(payloadBase64));
+                const isTokenValid = decodedToken && decodedToken.exp > Math.floor(Date.now() / 1000);
+
+                if (!isTokenValid) {
+                    navigate("/");
+                    toast.error("Invalid Token!");
+                    return null;
+                }
+                handleSubmit();
+                console.log("Decoded Token:", decodedToken.sub);
+                return decodedToken;
+            } catch (error) {
+                console.error("Error decoding token:", error);
+                navigate("/");
+                toast.error("Invalid Token!");
+                return null;
+            }
+        };
+
+        const decodedToken = decodeToken(token);
+
+        // Use the decoded token as needed outside the useEffect if required
+        if (decodedToken) {
+            // Your logic here
+            
+
+        }
+    }, [token]);
 
     const handleImageClick = (index: number) => {
         console.log(`Clicked on image ${index}`);
@@ -25,6 +80,8 @@ const Themes: React.FC<ThemesProps> = ({ isDarkmode }) => {
         console.log(selectedDescription);
         navigate(`/theme/${index}`, { state: { selectedImage, selectedDescription } });
     };
+
+
 
     const [darkMode, setDarkMode] = useState(false);
 
@@ -102,6 +159,9 @@ const Themes: React.FC<ThemesProps> = ({ isDarkmode }) => {
     const handleImageHover = (index: number) => {
         setHoveredIndex(index);
     };
+
+
+    // console.log(token);
 
     // console.log(isDarkmode);
     return (

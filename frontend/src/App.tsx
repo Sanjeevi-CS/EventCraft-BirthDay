@@ -1,15 +1,16 @@
 // import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.css'
 import { Toaster } from 'sonner';
 import { Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { BrowserRouter, Routes, Route, useNavigate, Navigate } from "react-router-dom";
 const Herolazy = React.lazy(() => import('./pages/hero'));
 const Dashboardlazy = React.lazy(() => import('./Components/AdminDashboard'));
 const Themeslazy = React.lazy(() => import('./pages/themes'));
-// const ThemeDetaillazy = React.lazy(() => import('./Components/ThemeDetail'));
+const ThemeDetaillazy = React.lazy(() => import('./Components/ThemeDetail'));
 // import Dashboard from "./Components/dashboard";
 // import Themes from './pages/themes';
 
@@ -22,6 +23,7 @@ import AdminTheme from './pages/Admin/AdminTheme';
 import AdminEvents from './pages/Admin/AdminEvents';
 import "./assets/css/loader.css"
 import { Errorpage } from './pages/404page';
+import Hero from './pages/hero';
 // import { Provider } from 'react-redux';}
 const CustomLoader = () => (
   <div className='flex items-center justify-center mt-[20%]'>
@@ -32,7 +34,13 @@ const CustomLoader = () => (
     </div>
   </div>
 );
+
+
 function App() {
+
+
+  
+
 
 
   return (
@@ -42,19 +50,27 @@ function App() {
         <BrowserRouter>
           <Routes>
 
-            <Route path="/" element={<Suspense fallback={<CustomLoader />}><Herolazy /></Suspense>} />
-            <Route path="/themes" element={<Suspense fallback={<CustomLoader />}><Themeslazy /></Suspense>} />
-            <Route path="/userprofile" element={<Suspense fallback={<CustomLoader />}><Userprofilelazy /></Suspense>} />
-            {/* <Route path="/themes/:index" element={<Suspense fallback={<CustomLoader />}><ThemeDetaillazy /></Suspense>} /> */}
-            <Route path="/theme/:index" element={<ThemeDetail />} />
+            <Route path="/" element={<Hero />} />
 
+            {/* USER */}
 
+            
+              <>
+                <Route path="/themes" element={<Suspense fallback={<CustomLoader />}><Themeslazy /></Suspense>} />
+                <Route path="/userprofile" element={<Suspense fallback={<CustomLoader />}><Userprofilelazy /></Suspense>} />
+                <Route path="/theme/:index" element={<Suspense fallback={<CustomLoader />}><ThemeDetaillazy /></Suspense>} />
+              </>
+         
+            {/* <Route path="/theme/:index" element={<ThemeDetail />} /> */}
+
+            {/* ADMIN */}
             <Route path="/admin" element={<Suspense fallback={<CustomLoader />}><Dashboardlazy /></Suspense>} />
             <Route path="/admin/manage" element={<ManagePage />} />
             <Route path="/admin/theme" element={<AdminTheme />} />
             <Route path="/admin/events" element={<AdminEvents />} />
 
             <Route path="*" element={<Errorpage />} />
+
           </Routes>
         </BrowserRouter>
       </div>
