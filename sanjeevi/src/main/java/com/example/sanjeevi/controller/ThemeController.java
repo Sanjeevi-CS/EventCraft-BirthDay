@@ -46,7 +46,7 @@ public class ThemeController {
     }
 
     @PostMapping("/add/theme/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    // @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ThemeModal> addProduct(@RequestBody ThemeModal theme, @PathVariable Integer id) {
         // System.out.println(theme.getThemeName());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

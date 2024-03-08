@@ -27,8 +27,8 @@ public class UserService {
         return "Successfully added";
     }
 
-    public Optional<UserModel> getUser(String email){
-        return userRepository.findByUserEmail(email);
+    public Optional<User> getUser(String email){
+        return userRepo.findByEmail(email);
     }
 
     public List<UserModel> getAllUser(){

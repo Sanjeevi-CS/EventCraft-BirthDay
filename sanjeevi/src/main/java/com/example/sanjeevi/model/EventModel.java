@@ -32,7 +32,7 @@ public class EventModel {
     private String eventTime;
     @ManyToOne
     @JoinColumn (name="theme_id")
-    @JsonIgnore
+    // @JsonIgnore
     private ThemeModal eventTheme;
     @ManyToOne
     @JsonIgnore

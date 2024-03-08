@@ -37,7 +37,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/getuser/{email}")
-    public ResponseEntity<UserModel> getUser(@PathVariable String email){
+    public ResponseEntity<User> getUser(@PathVariable String email){
         return ResponseEntity.ok(userService.getUser(email).get());
     }
     
