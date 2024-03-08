@@ -12,7 +12,7 @@ import "../assets/css/theme-repeator.css"
 import RootState from "../redux/store";
 import { useJwt } from "react-jwt";
 import { toast } from "sonner";
-
+import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import axios from "axios";
 interface ThemesProps {
@@ -20,20 +20,10 @@ interface ThemesProps {
 }
 const Themes: React.FC<ThemesProps> = ({ isDarkmode }) => {
     const token = sessionStorage.getItem('jwtToken');
+    const email = sessionStorage.getItem('Email');
     const navigate = useNavigate();
-    const handleSubmit = async () => {
-       
-        try {
-            const response = await axios.get(
-                "http://localhost:8080/api/v1/auth/getuser/user2@gmail.com",
 
-            );
-            console.log(response);
 
-        } catch (error) {
-            toast.error('Invalid Credentials');
-        }
-    };
     useEffect(() => {
         const decodeToken = (token) => {
             if (!token) {
@@ -46,14 +36,20 @@ const Themes: React.FC<ThemesProps> = ({ isDarkmode }) => {
                 const payloadBase64 = token.split('.')[1];
                 const decodedToken = JSON.parse(atob(payloadBase64));
                 const isTokenValid = decodedToken && decodedToken.exp > Math.floor(Date.now() / 1000);
-
+                const role = Cookies.get('role');
                 if (!isTokenValid) {
                     navigate("/");
                     toast.error("Invalid Token!");
                     return null;
                 }
-                handleSubmit();
-                console.log("Decoded Token:", decodedToken.sub);
+                if (role !== "USER") {
+                    navigate("/*");
+                    toast.error("Invalid Access!");
+                    return null;
+                }
+
+                // console.log("Decoded Token:", decodedToken.sub);
+
                 return decodedToken;
             } catch (error) {
                 console.error("Error decoding token:", error);
@@ -68,7 +64,7 @@ const Themes: React.FC<ThemesProps> = ({ isDarkmode }) => {
         // Use the decoded token as needed outside the useEffect if required
         if (decodedToken) {
             // Your logic here
-            
+
 
         }
     }, [token]);
@@ -92,7 +88,7 @@ const Themes: React.FC<ThemesProps> = ({ isDarkmode }) => {
         if (storedDarkMode !== null) {
             setDarkMode(JSON.parse(storedDarkMode));
         }
-        console.log(`Setting dark mode to: ${darkMode}`);
+        // console.log(`Setting dark mode to: ${darkMode}`);
     }, [darkMode]);
 
     const [positionIndexes, setPositionIndexes] = useState([0, 1, 2, 3, 4]);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import NotFoundPage from "../NotFound";
 
 import { Card } from "../../Components/card";
@@ -8,13 +8,82 @@ import { Input } from "../../Components/input";
 import { Textarea } from "../../Components/textarea";
 import Navbar from "../../Components/navbar";
 import Footer from "../../Components/footer";
-
+import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import AdminSideBar from "../../Components/AdminSidebar";
+import axios from "axios";
+import { toast } from "sonner";
 
 export default function AdminTheme() {
     const isDarkmode = useSelector((state) => state.isDarkmode)
-    console.log(isDarkmode);
+    // console.log(isDarkmode);
+    console.log("Vanakam Da Mapla!")
+    const [themeName, setThemeName] = useState("");
+    const [themeImageURL, setthemeImageURL] = useState("");
+    const [themeDescription, setthemeDescription] = useState("");
+    const [themeCost, setthemeCost] = useState("");
+
+    const [themes, setThemes] = useState([]);
+
+    const handleNameChange = (e) => {
+        setThemeName(e.target.value);
+    }
+
+    const handleImageChange = (e) => {
+        setthemeImageURL(e.target.value);
+    }
+
+    const handleeDescChange = (e) => {
+        setthemeDescription(e.target.value);
+    }
+
+    const handleCostChange = (e) => {
+        setthemeCost(e.target.value);
+    }
+
+    const getTheme = async () => {
+        try {
+            const response = await axios.get(
+                "http://localhost:8080/admin/get/themes"
+            )
+            // console.log(response);
+            setThemes(response.data);
+        }
+        catch {
+            toast.error("Fetching Response Error");
+        }
+    }
+    useEffect(() => {
+        getTheme();
+    })
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const id = Cookies.get('id');
+        try {
+            const response = await axios.post(
+                `http://localhost:8080/admin/add/theme/${id}`,
+                {
+                    themeName: themeName,
+                    themeImageURL: themeImageURL,
+                    themeDescription: themeDescription,
+                    themeCost: themeCost,
+
+                }
+            );
+            // console.log(response);
+            toast.success("Theme Added");
+            getTheme();
+            setThemeName("");
+            setthemeCost("");
+            setthemeDescription("");
+            setthemeImageURL("");
+            // const role=Cookies.get('role');
+
+        } catch (error) {
+            console.log(error);
+            // toast.error('Invalid Credentials');
+        }
+    };
     return (
         <div>
             <Navbar />
@@ -28,22 +97,26 @@ export default function AdminTheme() {
 
                                     <Card className=" dark:bg-gray-800 bg-gray-50 shadow-md">
                                         <h1 className="text-3xl text-center font-semibold py-4  dark:text-white">Add Theme</h1>
-                                        <form className="grid gap-4 p-6 dark:text-white">
+                                        <form className="grid gap-4 p-6 dark:text-white" onSubmit={handleSubmit}>
                                             <div className="space-y-2">
                                                 <Label htmlFor="title">Theme Name</Label>
-                                                <Input id="title" placeholder="Title" className="input bg-gray-50 focus:bg-gray-100 dark:text-black" required />
+                                                <Input id="title" value={themeName}
+                                                    onChange={handleNameChange} placeholder="Title" className="input bg-gray-50 focus:bg-gray-100 dark:text-black" required />
                                             </div>
                                             <div className="space-y-2">
                                                 <Label htmlFor="description">Theme Description</Label>
-                                                <Textarea id="description" placeholder="Describe the theme here..." className="input bg-gray-50 focus:bg-gray-100  dark:text-black" required />
+                                                <Textarea id="description" value={themeDescription}
+                                                    onChange={handleeDescChange} placeholder="Describe the theme here..." className="input bg-gray-50 focus:bg-gray-100  dark:text-black" required />
                                             </div>
                                             <div className="space-y-2">
                                                 <Label htmlFor="file">Theme Cost</Label>
-                                                <Input id="cost" type="number" placeholder="₹500" className="input bg-gray-50 focus:bg-gray-100  dark:text-black" defaultValue={500} />
+                                                <Input id="cost" value={themeCost}
+                                                    onChange={handleCostChange} type="number" placeholder="$500" className="input bg-gray-50 focus:bg-gray-100  dark:text-black" defaultValue={500} />
                                             </div>
                                             <div className="space-y-2">
                                                 <Label htmlFor="file">Theme Image</Label>
-                                                <Input id="file" type="file" className="input bg-gray-50 focus:bg-gray-100  dark:text-black" required />
+                                                <Input id="imageURL" type="string" value={themeImageURL}
+                                                    onChange={handleImageChange} className="input bg-gray-50 focus:bg-gray-100  dark:text-black" required />
                                             </div>
                                             <Button className="btn btn-success btn-outline bg-gray-50  dark:text-black" type="submit">Submit</Button>
                                         </form>
@@ -68,7 +141,7 @@ export default function AdminTheme() {
                                                             Name
                                                         </th>
                                                         <th scope="col" className="px-6 py-3">
-                                                            Food
+                                                            Image
                                                         </th>
 
                                                         <th scope="col" className="px-6 py-3">
@@ -77,102 +150,19 @@ export default function AdminTheme() {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr className="bg-gray-100 hover:dark:bg-purple-900 dark:bg-gray-800">
-                                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                            Halloween Theme
-                                                        </th>
-                                                        <td className="px-6 py-4">
-                                                            North Indian
-                                                        </td>
-
-                                                        <td className="px-6 py-4">
-                                                            $2999
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="bg-gray-100 dark:bg-gray-800  hover:dark:bg-purple-900">
-                                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                            Dino Theme
-                                                        </th>
-                                                        <td className="px-6 py-4">
-                                                            South Indian
-                                                        </td>
-
-                                                        <td className="px-6 py-4">
-                                                            $1999
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="bg-gray-100 dark:bg-gray-800  hover:dark:bg-purple-900">
-                                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                            Magic Mouse 2
-                                                        </th>
-                                                        <td className="px-6 py-4">
-                                                            Black
-                                                        </td>
-
-                                                        <td className="px-6 py-4">
-                                                            $99
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="bg-gray-100 dark:bg-gray-800  hover:dark:bg-purple-900">
-                                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                            Magic Mouse 2
-                                                        </th>
-                                                        <td className="px-6 py-4">
-                                                            Black
-                                                        </td>
-
-                                                        <td className="px-6 py-4">
-                                                            $99
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="bg-gray-100 dark:bg-gray-800">
-                                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                            Magic Mouse 2
-                                                        </th>
-                                                        <td className="px-6 py-4">
-                                                            Black
-                                                        </td>
-
-                                                        <td className="px-6 py-4">
-                                                            $99
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="bg-gray-100 dark:bg-gray-800">
-                                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                            Magic Mouse 2
-                                                        </th>
-                                                        <td className="px-6 py-4">
-                                                            Black
-                                                        </td>
-
-                                                        <td className="px-6 py-4">
-                                                            $99
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="bg-gray-100 dark:bg-gray-800">
-                                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                            Magic Mouse 2
-                                                        </th>
-                                                        <td className="px-6 py-4">
-                                                            Black
-                                                        </td>
-
-                                                        <td className="px-6 py-4">
-                                                            $99
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="bg-gray-100 dark:bg-gray-800">
-                                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                            Magic Mouse 2
-                                                        </th>
-                                                        <td className="px-6 py-4">
-                                                            Black
-                                                        </td>
-
-                                                        <td className="px-6 py-4">
-                                                            $99
-                                                        </td>
-                                                    </tr>
+                                                    {themes.map((theme) => (
+                                                        <tr key={theme.id} className="bg-gray-100 dark:bg-gray-800 hover:dark:bg-purple-900">
+                                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                                {theme.themeName}
+                                                            </th>
+                                                            <td className="px-6 py-4">
+                                                                {theme.themeImageURL}
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                ${theme.themeCost}
+                                                            </td>
+                                                        </tr>
+                                                    ))}
                                                 </tbody>
                                             </table>
                                         </div>
