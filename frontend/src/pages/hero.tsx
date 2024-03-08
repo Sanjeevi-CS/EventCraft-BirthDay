@@ -11,7 +11,7 @@ import avatar from "../assets/images/system-regular-8-account.gif"
 import birthday from "../assets/images/undraw_party_re_nmwj.svg";
 import passwordImg from "../assets/images/system-regular-40-add-card.gif";
 import { setToken } from "../redux/action";
-
+import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { toast } from "sonner";
 import axios from "axios";
@@ -74,7 +74,30 @@ const Hero = () => {
   }
 
   // const dispatch=useDispatch();
+  const userData = async () => {
 
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/v1/auth/getuser/${email}`,
+
+      );
+      // console.log(response.data);
+      Cookies.set('id', response.data.id);
+      Cookies.set('role', response.data.role);
+      const role=response.data.role;
+      if(role=='USER'){
+        navigate("/themes");
+        toast.success("Welcome!");
+      }
+      else if(role=='ADMIN'){
+          navigate("/admin");
+          toast.success("Welcome!");
+  
+        }
+    } catch (error) {
+      toast.error('Invalid Credentials');
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -89,11 +112,12 @@ const Hero = () => {
       );
       const jwtToken = response.data.token;
       sessionStorage.setItem("jwtToken", jwtToken);
-
-      navigate("/themes");
-      toast.success("Welcome!");
+      Cookies.set('Email', email);
+      userData();
+      // const role=Cookies.get('role');
+      
     } catch (error) {
-      toast.error('Invalid Credentials');
+      // toast.error('Invalid Credentials');
     }
   };
 

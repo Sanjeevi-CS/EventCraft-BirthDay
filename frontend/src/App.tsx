@@ -38,11 +38,6 @@ const CustomLoader = () => (
 
 function App() {
 
-
-  
-
-
-
   return (
     <>
       <div>
@@ -54,13 +49,13 @@ function App() {
 
             {/* USER */}
 
-            
-              <>
-                <Route path="/themes" element={<Suspense fallback={<CustomLoader />}><Themeslazy /></Suspense>} />
-                <Route path="/userprofile" element={<Suspense fallback={<CustomLoader />}><Userprofilelazy /></Suspense>} />
-                <Route path="/theme/:index" element={<Suspense fallback={<CustomLoader />}><ThemeDetaillazy /></Suspense>} />
-              </>
-         
+
+            <>
+              <Route path="/themes" element={<Suspense fallback={<CustomLoader />}><Themeslazy /></Suspense>} />
+              <Route path="/userprofile" element={<Suspense fallback={<CustomLoader />}><Userprofilelazy /></Suspense>} />
+              <Route path="/theme/:index" element={<Suspense fallback={<CustomLoader />}><ThemeDetaillazy /></Suspense>} />
+            </>
+
             {/* <Route path="/theme/:index" element={<ThemeDetail />} /> */}
 
             {/* ADMIN */}

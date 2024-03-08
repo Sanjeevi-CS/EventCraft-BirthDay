@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { toggleDarkMode } from '../redux/action';
-import logo from "../assets/images/logo.svg"
+import logo from "../assets/images/logo.svg";
+import Cookies from 'js-cookie';
 class navbar extends Component {
   constructor(props) {
     super(props);
@@ -36,6 +37,10 @@ class navbar extends Component {
 
   logout = () => {
     sessionStorage.clear();
+    Cookies.remove('Email');
+    Cookies.remove('id');
+    Cookies.remove('role');
+    // Cookies.remove('id');
   }
   render() {
     const { isDropdownOpen } = this.state;
