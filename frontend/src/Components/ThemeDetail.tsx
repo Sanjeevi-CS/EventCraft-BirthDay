@@ -46,6 +46,40 @@ export default function ThemeDetail(): ThemeDetailProps {
         setIsModalOpen(!isModalOpen);
     };
     // console.log('isDarkmode', isDarkmode);
+    const openPayment = () => {
+        const amount = 100;
+        if (amount > 0) {
+            const options = {
+                key: 'rzp_test_MmPRCpwT74cPXY',
+                key_secret: '6yYp62l0wHFm6YDoFgcEg31d',
+                amount: amount * 100,
+                currency: "INR",
+                name: 'Ocassion_Oracle',
+                handler: (res) => {
+                    // alert(res.razorpay_payment_id)
+                    MySwal.fire('Party Arranged!', 'Your party has been successfully arranged.', 'success');
+                      toggleModal();
+                },
+                prefill: {
+                    name: 'Sanjeevi',
+                    email: '727721eucs134@skcet.ac.in',
+                    contact: '9445984466'
+                },
+                notes: {
+                    address: " office",
+                },
+                theme: {
+                    color: '#f5f5f7'
+                }
+            };
+            const pay = new window.Razorpay(options);
+            pay.open();
+        }
+        else {
+            alert("invalid amount")
+        }
+
+    }
     const handleArrangeParty = () => {
         MySwal.fire({
             title: 'Are you sure?',
@@ -57,8 +91,10 @@ export default function ThemeDetail(): ThemeDetailProps {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                MySwal.fire('Party Arranged!', 'Your party has been successfully arranged.', 'success');
-                toggleModal();
+                openPayment();
+               
+              
+
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 MySwal.fire('Cancelled', 'Your party arrangement is cancelled.', 'error');
                 toggleModal();
