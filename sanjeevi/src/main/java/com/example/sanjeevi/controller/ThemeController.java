@@ -63,7 +63,7 @@ public class ThemeController {
     }
 
     @DeleteMapping("/delete/theme/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    // @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> deleteTheme(@PathVariable("id") int id) {
         themeService.deleteTheme(id);
         return ResponseEntity.ok("DELETED SUCCESSFULLY");

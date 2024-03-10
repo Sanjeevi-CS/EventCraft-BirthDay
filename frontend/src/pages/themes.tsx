@@ -21,9 +21,11 @@ interface ThemesProps {
 const Themes: React.FC<ThemesProps> = ({ isDarkmode }) => {
     const token = sessionStorage.getItem('jwtToken');
     const email = sessionStorage.getItem('Email');
+    const [images, setImages] = useState<string[]>([]);
+    const [descriptions, setDescriptions] = useState<string[]>([]);
     const navigate = useNavigate();
 
-
+    const [themeData, setThemeData] = useState<Array<{ image: string; description: string }>>([]);
     useEffect(() => {
         const decodeToken = (token) => {
             if (!token) {
@@ -47,9 +49,6 @@ const Themes: React.FC<ThemesProps> = ({ isDarkmode }) => {
                     toast.error("Invalid Access!");
                     return null;
                 }
-
-                // console.log("Decoded Token:", decodedToken.sub);
-
                 return decodedToken;
             } catch (error) {
                 console.error("Error decoding token:", error);
@@ -61,11 +60,9 @@ const Themes: React.FC<ThemesProps> = ({ isDarkmode }) => {
 
         const decodedToken = decodeToken(token);
 
-        // Use the decoded token as needed outside the useEffect if required
+
         if (decodedToken) {
-            // Your logic here
-
-
+            // Saptu Sainthiram vanthu yoosikalam 💤
         }
     }, [token]);
 
@@ -88,7 +85,6 @@ const Themes: React.FC<ThemesProps> = ({ isDarkmode }) => {
         if (storedDarkMode !== null) {
             setDarkMode(JSON.parse(storedDarkMode));
         }
-        // console.log(`Setting dark mode to: ${darkMode}`);
     }, [darkMode]);
 
     const [positionIndexes, setPositionIndexes] = useState([0, 1, 2, 3, 4]);
@@ -110,6 +106,7 @@ const Themes: React.FC<ThemesProps> = ({ isDarkmode }) => {
 
             return updatedIndexes;
         });
+
     };
 
     const handleKeyboardNavigation = (event: KeyboardEvent) => {
@@ -121,15 +118,40 @@ const Themes: React.FC<ThemesProps> = ({ isDarkmode }) => {
     };
 
 
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("http://localhost:8080/admin/get/themes");
+                setThemeData(response.data);
+                console.log(response.data);
+                const themes = response.data.map((theme) => ({
+                    image: theme.themeImageURL,
+                    description: theme.themeName,
+                }));
+                setThemeData(themes);
+                const themeImages = themes.map((theme) => theme.image);
+                setImages(themeImages);
+                const themeDes = themes.map((theme) => theme.description);
+                setDescriptions(themeDes);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     useEffect(() => {
         document.addEventListener("keydown", handleKeyboardNavigation);
         return () => {
 
             document.removeEventListener("keydown", handleKeyboardNavigation);
         };
+
     }, []);
 
-    const images = [city1, city2, city3, planet1, planet2];
+    // const images = [city1, city2, city3, planet1, planet2];
 
     const positions = ["center", "left1", "left", "right", "right1"];
 
@@ -141,13 +163,13 @@ const Themes: React.FC<ThemesProps> = ({ isDarkmode }) => {
         right1: { x: "50%", scale: 0.7, zIndex: 3, transition: { duration: 0.5 } },
     };
 
-    const descriptions = [
-        "Halloween Theme",
-        "Dino Theme",
-        "Enchanted Forest Theme",
-        "Classic Theme",
-        "Enchanted Forest Theme",
-    ];
+    // const descriptions = [
+    //     "Halloween Theme",
+    //     "Dino Theme",
+    //     "Enchanted Forest Theme",
+    //     "Classic Theme",
+    //     "Enchanted Forest Theme",
+    // ];
 
 
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);

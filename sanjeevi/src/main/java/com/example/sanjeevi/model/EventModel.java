@@ -35,6 +35,6 @@ public class EventModel {
     // @JsonIgnore
     private ThemeModal eventTheme;
     @ManyToOne
-    @JsonIgnore
+    // @JsonIgnore
     private UserModel userModel;
 }
